@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+:root {
+  --peach: #f6f1eb;
+  --black: #121212;
+  --accent: #f62527;
+  --hand: var(--font-caveat), 'Segoe Print', cursive;
+  --heading: var(--font-crimson-text), Georgia, serif;
+  --body: var(--font-mozilla-text), Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--peach); color: var(--black); font-family: var(--body); }
+button, input { font: inherit; }
+a { color: inherit; }
+
+.page-shell {
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at 7% 45%, rgb(246 37 39 / 8%) 0 1px, transparent 2px) 0 0 / 22px 22px, var(--peach);
+}
+
+.fomo-bar {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 8px 28px;
+  background: var(--black);
+  color: var(--peach);
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-align: center;
+}
+.fomo-bar p { margin: 0; }
+.fomo-bar strong { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.fomo-bar a { flex: 0 0 auto; font-weight: 800; text-underline-offset: 3px; }
+
+.navigation, .hero, .footer { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+.navigation {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(18 18 18 / 16%);
+}
+.wordmark {
+  font-family: var(--heading);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+.wordmark span { color: var(--accent); }
+.nav-actions { display: flex; align-items: center; gap: 28px; }
+.email-link { font-size: 13px; font-weight: 800; text-underline-offset: 4px; }
+
+.nav-button, .optin-form button {
+  border: 1px solid var(--black);
+  background: var(--accent);
+  color: var(--black);
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--black);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.nav-button { padding: 12px 18px; font-size: 13px; }
+.nav-button:hover, .optin-form button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--black); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+.hero { padding: clamp(48px, 7vw, 88px) 0 clamp(56px, 8vw, 104px); }
+.hero-card {
+  position: relative;
+  min-height: 590px;
+  display: grid;
+  align-content: center;
+  padding: clamp(40px, 7vw, 88px);
+  border: 1px solid var(--black);
+  background: linear-gradient(90deg, transparent 0 74%, rgb(246 37 39 / 7%) 74%), var(--peach);
+  box-shadow: 12px 12px 0 var(--accent);
+}
+.hero-card::before {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  right: 7%;
+  top: 11%;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+.hero-copy, .optin-form { position: relative; z-index: 1; width: min(760px, 100%); }
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--accent);
+  font-family: var(--hand);
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-1deg);
+}
+h1 {
+  max-width: 800px;
+  margin: 0;
+  font-family: var(--heading);
+  font-size: clamp(52px, 7.2vw, 92px);
+  font-weight: 600;
+  line-height: .9;
+  letter-spacing: -.055em;
+}
+h1 em { display: block; color: var(--accent); font-weight: 400; }
+.subheadline { max-width: 690px; margin: 28px 0 0; font-size: clamp(16px, 1.7vw, 20px); line-height: 1.55; }
+.benefits { display: grid; gap: 10px; margin: 28px 0 0; padding: 0; list-style: none; font-size: 14px; font-weight: 650; }
+.benefits li { position: relative; padding-left: 28px; }
+.benefits li::before { content: '*'; position: absolute; left: 0; top: -5px; color: var(--accent); font-family: var(--hand); font-size: 25px; }
+
+.optin-form { margin-top: 34px; }
+.field-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 12px; }
+.field-grid label { display: grid; gap: 7px; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.field-grid input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 15px;
+  border: 1px solid var(--black);
+  border-radius: 0;
+  background: rgb(255 255 255 / 42%);
+  color: var(--black);
+  text-transform: none;
+  letter-spacing: normal;
+}
+.field-grid input::placeholder { color: rgb(18 18 18 / 56%); }
+.optin-form button { width: 100%; min-height: 54px; margin-top: 12px; padding: 12px 20px; border-radius: 0; cursor: pointer; }
+.form-note { margin: 12px 0 0; font-size: 12px; color: rgb(18 18 18 / 68%); }
+.form-status { margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--accent); background: rgb(246 37 39 / 8%); font-size: 13px; font-weight: 700; }
+.card-mark { position: absolute; right: 4.5%; bottom: 7%; margin: 0; color: var(--accent); font-family: var(--hand); font-size: 28px; transform: rotate(-8deg); }
+
+.footer {
+  min-height: 120px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid rgb(18 18 18 / 16%);
+  font-size: 12px;
+}
+.footer p { margin: 0; }
+.footer p:last-child { text-align: right; }
+.footer-mark { font-size: 24px; }
+
+@media (max-width: 720px) {
+  .fomo-bar { gap: 10px; padding-inline: 16px; font-size: 10px; }
+  .fomo-bar strong { display: none; }
+  .navigation, .hero, .footer { width: calc(100% - 28px); }
+  .navigation { min-height: 76px; }
+  .nav-actions { gap: 12px; }
+  .email-link { display: none; }
+  .nav-button { padding: 10px 12px; font-size: 11px; }
+  .hero { padding: 28px 0 48px; }
+  .hero-card { min-height: auto; padding: 42px 22px 48px; background: var(--peach); box-shadow: 7px 7px 0 var(--accent); }
+  .hero-card::before, .card-mark { display: none; }
+  h1 { font-size: clamp(45px, 15vw, 68px); }
+  .subheadline { margin-top: 22px; font-size: 16px; }
+  .benefits { margin-top: 24px; font-size: 13px; line-height: 1.45; }
+  .field-grid { grid-template-columns: 1fr; }
+  .footer { min-height: 150px; grid-template-columns: 1fr; align-content: center; gap: 8px; }
+  .footer p:last-child { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .nav-button, .optin-form button { transition: none; }
+}
