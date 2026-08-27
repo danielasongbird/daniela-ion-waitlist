@@ -1,16 +1,6 @@
 import type { Metadata } from 'next';
-import { Caveat, Crimson_Text, Mozilla_Text } from 'next/font/google';
 import './globals.css';
 
-const caveat = Caveat({ variable: '--font-caveat', subsets: ['latin'], display: 'swap' });
-const crimson = Crimson_Text({
-  variable: '--font-crimson-text',
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-});
-const mozilla = Mozilla_Text({ variable: '--font-mozilla-text', subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://daniela-hear-yourself.hearty-shark-4784.chatgpt.site'),
@@ -34,7 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${caveat.variable} ${crimson.variable} ${mozilla.variable}`}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,65 +1,81 @@
-'use client';
+import ConceptSwitcher from './ConceptSwitcher';
+import HeroSlideshow from './HeroSlideshow';
+import NavigationStudies from './NavigationStudies';
+import SoulQuizModal from './SoulQuizModal';
+import SoulQuizTrigger from './SoulQuizTrigger';
+import { landingContent } from './landingContent';
 
-import { FormEvent, useState } from 'react';
+const design = {
+  ...landingContent,
+  images: [
+    '/images/hero-design-v4-editorial-cutout.webp',
+    '/images/hero-design-v4-rose-pose-05.webp',
+    '/images/hero-design-v4-pose-02.webp',
+    '/images/hero-design-v4-rose-pose-06.webp',
+    '/images/hero-design-v4-pose-04.webp',
+    '/images/hero-design-v4-rose-pose-07.webp',
+  ],
+  steps: landingContent.steps.map((label) => ({ label, body: '' })),
+  folio: 'Cover study / 01',
+};
 
 export default function Home() {
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
-
   return (
-    <main className="page-shell">
+    <main className="page-shell design-v4">
+      <ConceptSwitcher current="V1" />
       <aside className="fomo-bar" aria-label="Free meditation announcement">
-        <p><strong>Before your next scroll:</strong> hear what you have been trying to tell yourself.</p>
-        <a href="#freebie-form">Listen free</a>
+        <p><strong>{design.noticeLead}</strong> {design.notice}</p>
+        <SoulQuizTrigger className="fomo-quiz-trigger">Hear yourself</SoulQuizTrigger>
       </aside>
 
-      <nav className="navigation" aria-label="Primary navigation">
-        <a className="wordmark" href="#" aria-label="Daniela home">Daniela<span>.</span></a>
-        <div className="nav-actions">
-          <a className="email-link" href="mailto:hello@daniela.com">Email</a>
-          <a className="nav-button" href="#freebie-form">Get the meditation</a>
-        </div>
-      </nav>
+      <NavigationStudies cta={design.navCta} />
 
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-card">
-          <div className="hero-copy">
-            <p className="eyebrow">A free creative authority reset</p>
-            <h1 id="hero-title">You&apos;ve heard everyone else.<em>Now hear yourself.</em></h1>
-            <p className="subheadline">
-              A short guided meditation for women entrepreneurs who are tired of
-              overthinking, second-guessing, and creating from everybody else&apos;s rules.
-            </p>
-            <ul className="benefits">
-              <li>Turn down the noise of AI, algorithms, and endless advice.</li>
-              <li>Bring one question and reconnect with your own signal.</li>
-              <li>Leave with one grounded next step that feels like yours.</li>
-            </ul>
+          <HeroSlideshow images={design.images} />
+          <div className="cover-type" aria-hidden="true">
+            <span>Hear</span>
+            <span>Yourself</span>
           </div>
 
-          <form id="freebie-form" className="optin-form" onSubmit={handleSubmit}>
-            <div className="field-grid">
-              <label>Name<input name="name" type="text" autoComplete="name" placeholder="First name" required /></label>
-              <label>Email<input name="email" type="email" autoComplete="email" placeholder="you@example.com" required /></label>
-            </div>
-            <button type="submit">Send me the free meditation</button>
-            <p className="form-note">Free guided audio. No noise, no spam. Unsubscribe anytime.</p>
-            {submitted && <p className="form-status" role="status">Your place is reserved. Email delivery will be connected before launch.</p>}
-          </form>
+          <div className="hero-layout">
+            <div className="hero-copy">
+              <p className="eyebrow">{design.eyebrow}</p>
+              <h1 id="hero-title">
+                <span>{design.title}</span>
+                <em>{design.accent}</em>
+              </h1>
+              <p className="subheadline">{design.deck}</p>
 
-          <p className="card-mark" aria-hidden="true">listen inward</p>
+              <ol className="design-steps steps-v2" aria-label="What the practice includes">
+                {design.steps.map((step, index) => (
+                  <li key={step.label}>
+                    <span className="step-number">{String(index + 1).padStart(2, '0')}</span>
+                    <div>
+                      <p className="step-copy">{step.label}</p>
+                      {step.body && <p>{step.body}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div id="freebie-form" className="optin-form cta-only">
+              <SoulQuizTrigger className="quiz-open-button">{design.cta}</SoulQuizTrigger>
+              <p className="form-note">{design.note}</p>
+            </div>
+
+            <p className="card-mark" aria-hidden="true">{design.mark}</p>
+          </div>
         </div>
       </section>
 
       <footer className="footer">
         <a className="wordmark footer-mark" href="#" aria-label="Daniela home">Daniela<span>.</span></a>
-        <p>Creative authority for women who lead.</p>
+        <p>{design.footer}</p>
         <p>&copy; {new Date().getFullYear()} Daniela</p>
       </footer>
+      <SoulQuizModal />
     </main>
   );
 }
