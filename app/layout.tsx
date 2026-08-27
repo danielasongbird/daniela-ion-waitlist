@@ -1,23 +1,24 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://soul-portal.p-burmesterm.workers.dev';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://daniela-hear-yourself.hearty-shark-4784.chatgpt.site'),
-  title: 'Hear Yourself | A Free Creative Authority Reset',
-  description: 'A free guided meditation for women entrepreneurs ready to turn down the noise and reconnect with their own creative signal.',
+  metadataBase: new URL(siteUrl),
+  title: 'Soul Portal | Splendor of Unique Love',
+  description: 'A private seven-minute audio experience for women ready to hear their own voice and unlock what is already within them.',
   openGraph: {
-    title: 'You have heard everyone else. Now hear yourself.',
-    description: 'A free creative authority reset for women entrepreneurs.',
+    title: 'Soul Portal | Splendor of Unique Love',
+    description: 'Seven minutes to quiet the noise, hear what is yours, and return to your truest expression.',
     type: 'website',
-    url: 'https://daniela-hear-yourself.hearty-shark-4784.chatgpt.site',
-    images: [{ url: 'https://daniela-hear-yourself.hearty-shark-4784.chatgpt.site/og.png', width: 1200, height: 630, alt: 'Hear Yourself - a free creative authority reset' }],
+    url: siteUrl,
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Soul Portal — Splendor of Unique Love' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'You have heard everyone else. Now hear yourself.',
-    description: 'A free creative authority reset for women entrepreneurs.',
-    images: ['https://daniela-hear-yourself.hearty-shark-4784.chatgpt.site/og.png'],
+    title: 'Soul Portal | Splendor of Unique Love',
+    description: 'Seven minutes to quiet the noise, hear what is yours, and return to your truest expression.',
+    images: ['/og.png'],
   },
 };
 

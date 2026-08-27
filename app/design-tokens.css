@@ -1,0 +1,127 @@
+/*
+ * Daniela Rebrand - Design Tokens
+ *
+ * Framework-neutral CSS custom properties for the opt-in, tripwire, and
+ * membership experiences.
+ *
+ * Accessibility reference:
+ * - black on peach: 16.68:1 (WCAG AAA for normal text)
+ * - black on Ballet Blush: 10.86:1 (WCAG AAA for normal text)
+ * - dusty rose on peach: 5.00:1 (WCAG AA for normal text)
+ *
+ * Use Ballet Blush for fills and dusty rose for readable accent text.
+ */
+
+:root {
+  /* Primitive brand colors: the canonical palette */
+  --color-brand-peach: #f6f1eb;
+  --color-brand-black: #121212;
+  --color-brand-accent: #e3bbc4;
+  --color-brand-accent-text: #985268;
+  --color-brand-accent-highlight: color-mix(in srgb, var(--color-brand-accent) 68%, white);
+  --color-brand-accent-shadow: color-mix(in srgb, var(--color-brand-accent) 55%, black);
+
+  /*
+   * Primitive font families
+   *
+   * Load the webfont files separately in the application. These fallback
+   * stacks keep the roles usable while the branded fonts are unavailable.
+   *
+   * Caveat: https://fonts.google.com/specimen/Caveat
+   * Crimson Text: https://fonts.google.com/specimen/Crimson+Text
+   * Mozilla Text: https://fonts.google.com/specimen/Mozilla+Text
+   */
+  --font-family-caveat: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --font-family-crimson-text: "Crimson Text", Georgia, "Times New Roman", serif;
+  --font-family-mozilla-text: "Mozilla Text", Arial, sans-serif;
+
+  /* Semantic typography roles */
+  --font-family-handwritten: var(--font-family-caveat);
+  --font-family-heading: var(--font-family-crimson-text);
+  --font-family-body: var(--font-family-mozilla-text);
+  --font-family-instruction: var(--font-family-handwritten);
+  --font-family-paragraph: var(--font-family-body);
+
+  /* Page and surface colors */
+  --color-background-primary: var(--color-brand-peach);
+  --color-background-inverse: var(--color-brand-black);
+  --color-surface-primary: var(--color-brand-peach);
+  --color-surface-inverse: var(--color-brand-black);
+
+  /* Text and icon colors */
+  --color-text-primary: var(--color-brand-black);
+  --color-text-inverse: var(--color-brand-peach);
+  --color-icon-primary: var(--color-brand-black);
+  --color-icon-inverse: var(--color-brand-peach);
+
+  /* Brand emphasis */
+  --color-accent: var(--color-brand-accent-text);
+  --color-emphasis: var(--color-brand-accent-text);
+
+  /*
+   * Interactive controls
+   *
+   * Black on Ballet Blush exceeds WCAG AAA. Ballet Blush is used for fills
+   * and dusty rose supports readable accent text, while black remains the
+   * interactive controls and body copy.
+   */
+  --color-action-primary-background: var(--color-brand-accent);
+  --gradient-action-primary: linear-gradient(180deg, var(--color-brand-accent-highlight) 0%, var(--color-brand-accent) 42%, var(--color-brand-accent-shadow) 100%);
+  --color-action-primary-foreground: var(--color-brand-black);
+  --color-action-secondary-background: transparent;
+  --color-action-secondary-foreground: var(--color-brand-black);
+  --color-action-secondary-border: var(--color-brand-black);
+
+  /* Borders and focus */
+  --color-border-primary: var(--color-brand-black);
+  --color-border-accent: var(--color-brand-accent-text);
+  --color-focus-ring: var(--color-brand-black);
+
+  /*
+   * Selection
+   *
+   * Peach on dusty rose reaches 5.00:1 at normal sizes.
+   */
+  --color-selection-background: var(--color-brand-accent-text);
+  --color-selection-foreground: var(--color-brand-peach);
+
+  /* Supporting surface treatments derived from the canonical palette */
+  --color-border-subtle: color-mix(in srgb, var(--color-border-primary) 16%, transparent);
+  --color-surface-glass: color-mix(in srgb, var(--color-surface-primary) 88%, transparent);
+  --color-field-background: color-mix(in srgb, white 42%, transparent);
+  --color-text-muted: color-mix(in srgb, var(--color-text-primary) 68%, transparent);
+
+  /* Editorial spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-22: 88px;
+
+  /* Shape, layout, and depth */
+  --size-content-max: 1180px;
+  --size-page-gutter: 24px;
+  --size-page-gutter-mobile: 14px;
+  --border-width-primary: 1px;
+  --radius-control: 0;
+  --shadow-action: 4px 4px 0 var(--color-brand-black);
+  --shadow-action-hover: 2px 2px 0 var(--color-brand-black);
+  --shadow-hero: 12px 12px 0 var(--color-brand-accent);
+  --shadow-hero-mobile: 7px 7px 0 var(--color-brand-accent);
+
+  /* Motion */
+  --duration-fast: 160ms;
+  --easing-brand: ease;
+}
+
+::selection {
+  color: var(--color-selection-foreground);
+  background: var(--color-selection-background);
+}
