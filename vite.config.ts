@@ -7,7 +7,7 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === 'seatbelt';
 const cloudflareConfig = {
   name: 'soul-portal',
   main: 'vinext/server/app-router-entry',
-  compatibility_date: '2026-08-27',
+  compatibility_date: '2026-05-22',
   compatibility_flags: ['nodejs_compat'],
 };
 
