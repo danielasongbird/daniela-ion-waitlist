@@ -420,7 +420,7 @@ function VersionOneB() {
 
       <section className="waitlist-v1b-founder" aria-labelledby="waitlist-v1b-founder-title">
         <div className="waitlist-v1b-founder-image">
-          <Image src="/images/daniela-closeup-portrait.webp" alt="Daniela smiling in an editorial portrait" fill sizes="(max-width: 820px) 100vw, 42vw" />
+          <Image src="/images/daniela2.jpeg" alt="Daniela smiling beside a studio microphone" fill sizes="(max-width: 820px) 100vw, 42vw" />
         </div>
         <div className="waitlist-v1b-founder-copy">
           <p>A note from Daniela</p>
