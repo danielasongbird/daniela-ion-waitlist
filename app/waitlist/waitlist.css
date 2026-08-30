@@ -451,7 +451,7 @@
 /* V1B — focused, trust-forward conversion edit */
 .waitlist-concept-v1b {
   --v1b-plum: #372044;
-  --v1b-pink: #ef83ad;
+  --v1b-pink: #a9727a;
   --v1b-blush: #f7ddd2;
   --v1b-cream: #fff9f3;
   display: grid;
@@ -767,6 +767,17 @@
   cursor: wait;
   opacity: .72;
   transform: none;
+}
+
+.waitlist-bold-arrow {
+  width: 27px;
+  height: 24px;
+  flex: 0 0 auto;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .waitlist-v1b-trust {
@@ -1226,7 +1237,7 @@
 .waitlist-concept-v3 {
   --v3-plum: #372044;
   --v3-rose: #a84c79;
-  --v3-pink: #ef83ad;
+  --v3-pink: #a9727a;
   --v3-cream: #fff9f3;
   --v3-cream-rgb: 255 249 243;
   --v3-answer-start: #f8d9cc;
@@ -1244,6 +1255,10 @@
   border-color: color-mix(in srgb, var(--v3-plum) 22%, transparent);
   background: var(--v3-cream);
   box-shadow: 0 5px 0 color-mix(in srgb, var(--v3-rose) 18%, transparent);
+}
+
+.waitlist-concept-v3 .waitlist-v1b-nav-cta {
+  color: #fff;
 }
 
 .waitlist-concept-v3 .waitlist-v1b-program em,
@@ -1536,7 +1551,7 @@
   padding: 0 22px;
   border: 1px solid var(--v3-plum);
   background: var(--v3-pink);
-  color: var(--v3-plum);
+  color: #fff;
   box-shadow: 6px 6px 0 var(--v3-plum);
   font-size: 11px;
   font-weight: 900;
@@ -1582,6 +1597,22 @@
 .waitlist-v3-socials a:focus-visible {
   background: var(--v3-plum);
   color: #fffaf6;
+}
+
+.waitlist-social-icon {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.waitlist-social-icon-dot {
+  fill: currentColor;
+  stroke: none;
 }
 
 .waitlist-v3-modal-backdrop {
@@ -1669,7 +1700,7 @@
   padding: 0 20px;
   border: 1px solid var(--v3-plum);
   background: var(--v3-pink);
-  color: var(--v3-plum);
+  color: #fff;
   box-shadow: 5px 5px 0 var(--v3-plum);
   font-size: 11px;
   font-weight: 900;

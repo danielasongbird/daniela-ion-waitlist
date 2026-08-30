@@ -37,5 +37,8 @@ next-env.d.ts
 /outputs/
 /work/
 
+# local-only archived concept; never commit or deploy
+/app/waitlist_v1b_old/
+
 # local development logs
 *.log

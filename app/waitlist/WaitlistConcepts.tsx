@@ -3,15 +3,6 @@
 import Image from 'next/image';
 import { useState, type FormEvent } from 'react';
 
-type Concept = 'v1' | 'v1b' | 'v2' | 'v3';
-
-const conceptNames: Record<Concept, string> = {
-  v1: 'Editorial invitation',
-  v1b: 'Conversion edit',
-  v2: 'Portal opening',
-  v3: 'Final client revision',
-};
-
 const waitlistQuestions = [
   'Why does everything have to be perfect before I’ll let anyone see it?',
   'Why can’t I turn my brain off long enough to just create something?',
@@ -56,7 +47,34 @@ function WaitlistForm({ dark = false }: { dark?: boolean }) {
   );
 }
 
-function VersionOne() {
+function BoldArrow() {
+  return (
+    <svg className="waitlist-bold-arrow" aria-hidden="true" viewBox="0 0 26 24" fill="none">
+      <path d="M2 12h21M16 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+function SocialIcon({ network }: { network: 'instagram' | 'linkedin' }) {
+  if (network === 'instagram') {
+    return (
+      <svg className="waitlist-social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle className="waitlist-social-icon-dot" cx="17.4" cy="6.7" r="1" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="waitlist-social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M8 10v7M8 7.2v.1M11.5 17v-7M11.5 13.1c.8-2.1 4.5-2.2 4.5 1V17" />
+    </svg>
+  );
+}
+
+export function VersionOne() {
   return (
     <div className="waitlist-concept waitlist-concept-v1">
       <nav className="waitlist-nav waitlist-nav-v1" aria-label="Waitlist navigation">
@@ -99,7 +117,7 @@ function VersionOne() {
   );
 }
 
-function VersionTwo() {
+export function VersionTwo() {
   return (
     <div className="waitlist-concept waitlist-concept-v2 concept-v11">
       <nav className="waitlist-nav-v2-final" aria-label="Waitlist navigation">
@@ -181,10 +199,10 @@ export function VersionThree() {
           <span className="waitlist-v3-dot waitlist-v3-dot-two" aria-hidden="true" />
           <p className="waitlist-v1b-kicker">For women who are done performing</p>
           <h1 id="waitlist-v3-title">You don’t need more <span className="waitlist-v3-headline-join">strategy. <span className="waitlist-v3-headline-accent">You need to</span></span><span className="waitlist-v3-headline-accent"> lead with your frequency.</span></h1>
-          <p className="waitlist-v3-subheadline">Soul Portal is a private invitation for the creative woman ready to lead with her soul story, to finally write that book, record the song, launch the business &amp; create the content. Knowing she is more than enough and totally worth more.</p>
+          <p className="waitlist-v3-subheadline">Soul portal is a private invitation for the creative woman. The woman ready to lead with her soul story. The woman ready to finally write her book, record her song, launch her business &amp; create her content - knowing she is more than enough and totally worth more.</p>
           <button className="waitlist-v3-modal-trigger waitlist-v3-hero-trigger" id="join-v3" type="button" onClick={() => setIsJoinModalOpen(true)}>
             <span>Enter The Portal</span>
-            <span aria-hidden="true">↗</span>
+            <BoldArrow />
           </button>
         </section>
 
@@ -210,7 +228,7 @@ export function VersionThree() {
             <p className="waitlist-v3-build">That is why I am building something for women who are done performing and ready to be their truest expression of themselves.</p>
             <button className="waitlist-v3-modal-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>
               <span>Join the Soul Portal waitlist</span>
-              <span aria-hidden="true">↗</span>
+              <BoldArrow />
             </button>
           </div>
         </section>
@@ -234,7 +252,7 @@ export function VersionThree() {
                 <input name="consent" type="checkbox" required />
                 <span>I agree to receive Soul Portal emails. I can unsubscribe at any time.</span>
               </label>
-              <button type="submit">Join the Soul Portal waitlist <span aria-hidden="true">→</span></button>
+              <button type="submit">Join the Soul Portal waitlist <BoldArrow /></button>
             </form>
             <small>Private by design. No spam. Your details are never sold.</small>
           </section>
@@ -251,8 +269,8 @@ export function VersionThree() {
           <p>I know what it’s like to have so much bubbling up inside of you, but to still be playing small. The perfectionism loop is real, and I’ve lived every part of it. Overthinking every word so it doesn’t sound cringey. Wondering what people would think if they saw the real you.</p>
           <p>And this is exactly why a new era has come. A total human renaissance, where women stop performing and start creating from their soul. I built Soul Portal for the woman ready to be part of it, for such a time as this.</p>
           <div className="waitlist-v3-socials" aria-label="Follow Daniela">
-            <a href="https://www.instagram.com/thedaniela.ion?igsi=eHNtdm1wcG8ydGZv&amp;utm_source=qr" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/danielaion" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a href="https://www.instagram.com/thedaniela.ion?igsi=eHNtdm1wcG8ydGZv&amp;utm_source=qr" target="_blank" rel="noreferrer">Instagram <SocialIcon network="instagram" /></a>
+            <a href="https://www.linkedin.com/in/danielaion" target="_blank" rel="noreferrer">LinkedIn <SocialIcon network="linkedin" /></a>
           </div>
         </div>
       </section>
@@ -286,7 +304,7 @@ export function VersionThree() {
         </div>
         <button className="waitlist-v3-modal-trigger waitlist-v3-faq-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>
           <span>Join the Soul Portal waitlist</span>
-          <span aria-hidden="true">→</span>
+          <BoldArrow />
         </button>
       </section>
 
@@ -299,7 +317,7 @@ export function VersionThree() {
   );
 }
 
-function VersionOneB() {
+export function VersionOneB() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formMessage, setFormMessage] = useState('');
   const [formStarted, setFormStarted] = useState(false);
@@ -409,7 +427,7 @@ function VersionOneB() {
             <input className="waitlist-v1b-honeypot" name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <button type="submit" disabled={formState === 'submitting'}>
               <span>{formState === 'submitting' ? 'Joining the private list…' : 'Join the Soul Portal waitlist'}</span>
-              <span aria-hidden="true">→</span>
+              <BoldArrow />
             </button>
           </form>
 
@@ -457,7 +475,7 @@ function VersionOneB() {
             <p>A public opening date has not been announced. Waitlist members will be told first when verified launch details are available—without a fake countdown or manufactured deadline.</p>
           </details>
         </div>
-        <a className="waitlist-v1b-faq-cta" href="#join-v1b">Join the Soul Portal waitlist <span aria-hidden="true">→</span></a>
+        <a className="waitlist-v1b-faq-cta" href="#join-v1b">Join the Soul Portal waitlist <BoldArrow /></a>
       </section>
 
       <footer className="waitlist-footer waitlist-footer-v1b">
@@ -470,30 +488,5 @@ function VersionOneB() {
 }
 
 export default function WaitlistConcepts() {
-  const [concept, setConcept] = useState<Concept>('v3');
-
-  return (
-    <div className="waitlist-lab">
-      <aside className="waitlist-switcher" aria-label="Waitlist design versions">
-        <span>Design</span>
-        <div>
-          {(['v1b', 'v3'] as const).map((version) => (
-            <button
-              key={version}
-              type="button"
-              className={concept === version ? 'is-active' : ''}
-              aria-pressed={concept === version}
-              aria-label={`Show ${conceptNames[version]}`}
-              onClick={() => setConcept(version)}
-            >
-              {version.toUpperCase()}
-            </button>
-          ))}
-        </div>
-        <small>{conceptNames[concept]}</small>
-      </aside>
-
-      {concept === 'v1' ? <VersionOne /> : concept === 'v1b' ? <VersionOneB /> : concept === 'v2' ? <VersionTwo /> : <VersionThree />}
-    </div>
-  );
+  return <VersionThree />;
 }
