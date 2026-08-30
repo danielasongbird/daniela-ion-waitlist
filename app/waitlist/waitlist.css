@@ -826,7 +826,7 @@
 
 .waitlist-v1b-founder-image img {
   object-fit: cover;
-  object-position: 58% center;
+  object-position: center top;
   filter: saturate(.88);
 }
 
@@ -1983,4 +1983,16 @@
   .waitlist-v1-portrait { min-height: 500px; }
   .waitlist-v1-image-wrap { min-height: 470px; }
   .waitlist-v2-copy { padding-top: 280px; }
+}
+
+/* Final V3 footer — compact, light, and matched to the navigation */
+.waitlist-concept-v3 .waitlist-footer-v1b {
+  min-height: 58px;
+  padding: 12px max(20px, calc((100% - 1200px) / 2));
+  border-top: 1px solid color-mix(in srgb, var(--v3-plum) 28%, transparent);
+  background: var(--v3-cream);
+  color: var(--v3-plum);
+  box-shadow: inset 0 4px 0 color-mix(in srgb, var(--v3-rose) 14%, transparent);
+  font-size: 10px;
+  font-weight: 850;
 }
