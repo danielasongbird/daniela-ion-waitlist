@@ -223,7 +223,7 @@ export function VersionThree() {
 
           <div className="waitlist-v3-answer">
             <p>I think they’re the same question wearing different outfits.</p>
-            <p>And I think the answer isn’t more strategy or more hustle.</p>
+            <p>The answer isn’t more strategy or more hustle.</p>
             <p><strong>It’s your frequency, your vibration.</strong> It’s remembering what your soul voice actually sounds like before the noise got so loud.</p>
             <p className="waitlist-v3-build">That is why I am building something for women who are done performing and ready to be their truest expression of themselves.</p>
             <button className="waitlist-v3-modal-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>

@@ -1259,6 +1259,22 @@
 
 .waitlist-concept-v3 .waitlist-v1b-nav-cta {
   color: #fff;
+  font-size: 10px;
+  transition: box-shadow 160ms ease, transform 160ms ease, filter 160ms ease;
+}
+
+.waitlist-concept-v3 .waitlist-v1b-nav-cta:hover,
+.waitlist-concept-v3 .waitlist-v1b-nav-cta:focus-visible {
+  box-shadow: 1px 1px 0 var(--v3-plum);
+  filter: brightness(1.05);
+  outline: none;
+  transform: translate(2px, 2px);
+}
+
+.waitlist-concept-v3 .waitlist-v1b-nav-cta:active {
+  box-shadow: none;
+  filter: brightness(.96);
+  transform: translate(3px, 3px);
 }
 
 .waitlist-concept-v3 .waitlist-v1b-program em,
@@ -1553,15 +1569,30 @@
   background: var(--v3-pink);
   color: #fff;
   box-shadow: 6px 6px 0 var(--v3-plum);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
   cursor: pointer;
+  transition: box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.waitlist-v3-modal-trigger:hover,
+.waitlist-v3-modal-trigger:focus-visible {
+  box-shadow: 3px 3px 0 var(--v3-plum);
+  filter: brightness(1.05);
+  outline: none;
+  transform: translate(3px, 3px);
+}
+
+.waitlist-v3-modal-trigger:active {
+  box-shadow: 1px 1px 0 var(--v3-plum);
+  filter: brightness(.95);
+  transform: translate(5px, 5px);
 }
 
 .waitlist-v3-hero-trigger {
-  width: min(480px, 100%);
+  width: min(390px, 100%);
   margin-top: 2px;
 }
 
@@ -1591,12 +1622,17 @@
   letter-spacing: .08em;
   text-decoration: none;
   text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
 .waitlist-v3-socials a:hover,
 .waitlist-v3-socials a:focus-visible {
   background: var(--v3-plum);
   color: #fffaf6;
+}
+
+.waitlist-v3-socials a:active {
+  transform: scale(.96);
 }
 
 .waitlist-social-icon {
@@ -1650,6 +1686,19 @@
   font-size: 25px;
   line-height: 1;
   cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.waitlist-v3-modal-close:hover,
+.waitlist-v3-modal-close:focus-visible {
+  background: var(--v3-plum);
+  color: #fff;
+  outline: none;
+  transform: rotate(4deg) scale(1.04);
+}
+
+.waitlist-v3-modal-close:active {
+  transform: rotate(0) scale(.94);
 }
 
 .waitlist-v3-modal h2 {
@@ -1702,11 +1751,39 @@
   background: var(--v3-pink);
   color: #fff;
   box-shadow: 5px 5px 0 var(--v3-plum);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: .07em;
   text-transform: uppercase;
   cursor: pointer;
+  transition: box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.waitlist-v3-modal-form > button:hover,
+.waitlist-v3-modal-form > button:focus-visible {
+  box-shadow: 2px 2px 0 var(--v3-plum);
+  filter: brightness(1.05);
+  outline: none;
+  transform: translate(3px, 3px);
+}
+
+.waitlist-v3-modal-form > button:active {
+  box-shadow: none;
+  filter: brightness(.95);
+  transform: translate(5px, 5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-concept-v3 .waitlist-v1b-nav-cta,
+  .waitlist-v3-modal-trigger,
+  .waitlist-v3-modal-close,
+  .waitlist-v3-modal-form > button {
+    transition: none;
+  }
+
+  .waitlist-v3-socials a {
+    transition: none;
+  }
 }
 
 @media (max-width: 820px) {
