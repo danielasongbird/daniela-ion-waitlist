@@ -9,7 +9,7 @@ const conceptNames: Record<Concept, string> = {
   v1: 'Editorial invitation',
   v1b: 'Conversion edit',
   v2: 'Portal opening',
-  v3: 'Conversion edit clone',
+  v3: 'Final client revision',
 };
 
 const waitlistQuestions = [
@@ -161,15 +161,9 @@ function VersionTwo() {
 
 export function VersionThree() {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-  const [palette, setPalette] = useState<'v1' | 'v2'>('v1');
 
   return (
-    <div className={`waitlist-concept waitlist-concept-v3 waitlist-v3-palette-${palette}`}>
-      <aside className="waitlist-v3-palette-switcher" aria-label="Color palette versions">
-        <span>Palette</span>
-        <button type="button" className={palette === 'v1' ? 'is-active' : ''} aria-pressed={palette === 'v1'} onClick={() => setPalette('v1')}>V1</button>
-        <button type="button" className={palette === 'v2' ? 'is-active' : ''} aria-pressed={palette === 'v2'} onClick={() => setPalette('v2')}>V2</button>
-      </aside>
+    <div className="waitlist-concept waitlist-concept-v3 waitlist-v3-palette-v1">
       <nav className="waitlist-nav-v1b" aria-label="Waitlist navigation">
         <a className="waitlist-v1b-program" href="#top-v3">Soul Portal <em>Splendour of Unique Love</em></a>
         <a className="waitlist-v1b-nav-cta" href="#join-v3">Join the Soul Portal waitlist</a>
@@ -476,7 +470,7 @@ function VersionOneB() {
 }
 
 export default function WaitlistConcepts() {
-  const [concept, setConcept] = useState<Concept>('v1b');
+  const [concept, setConcept] = useState<Concept>('v3');
 
   return (
     <div className="waitlist-lab">
