@@ -92,7 +92,7 @@ function VersionOne() {
 
       <footer className="waitlist-footer waitlist-footer-v1">
         <p>Soul Portal</p>
-        <p>Splendor of Unique Love</p>
+        <p>Splendour of Unique Love</p>
         <p>© Daniela</p>
       </footer>
     </div>
@@ -152,20 +152,26 @@ function VersionTwo() {
 
       <footer className="waitlist-footer waitlist-footer-v2">
         <p>Daniela ✦</p>
-        <p>Soul Portal — Splendor of Unique Love</p>
+        <p>Soul Portal — Splendour of Unique Love</p>
         <p>Private access · 2026</p>
       </footer>
     </div>
   );
 }
 
-function VersionThree() {
+export function VersionThree() {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [palette, setPalette] = useState<'v1' | 'v2'>('v1');
 
   return (
-    <div className="waitlist-concept waitlist-concept-v3">
+    <div className={`waitlist-concept waitlist-concept-v3 waitlist-v3-palette-${palette}`}>
+      <aside className="waitlist-v3-palette-switcher" aria-label="Color palette versions">
+        <span>Palette</span>
+        <button type="button" className={palette === 'v1' ? 'is-active' : ''} aria-pressed={palette === 'v1'} onClick={() => setPalette('v1')}>V1</button>
+        <button type="button" className={palette === 'v2' ? 'is-active' : ''} aria-pressed={palette === 'v2'} onClick={() => setPalette('v2')}>V2</button>
+      </aside>
       <nav className="waitlist-nav-v1b" aria-label="Waitlist navigation">
-        <a className="waitlist-v1b-program" href="#top-v3">Soul Portal <em>Splendor of Unique Love</em></a>
+        <a className="waitlist-v1b-program" href="#top-v3">Soul Portal <em>Splendour of Unique Love</em></a>
         <a className="waitlist-v1b-nav-cta" href="#join-v3">Join the Soul Portal waitlist</a>
       </nav>
 
@@ -180,10 +186,10 @@ function VersionThree() {
           <span className="waitlist-v3-dot waitlist-v3-dot-one" aria-hidden="true" />
           <span className="waitlist-v3-dot waitlist-v3-dot-two" aria-hidden="true" />
           <p className="waitlist-v1b-kicker">For women who are done performing</p>
-          <h1 id="waitlist-v3-title">You don’t need more <span className="waitlist-v3-headline-bridge">strategy, <em>You need to</em></span><span className="waitlist-v3-headline-accent"> hear your own voice again.</span></h1>
-          <p className="waitlist-v3-subheadline">Soul Portal is a private invitation to quiet the noise, reconnect with your frequency, and return to the creative voice that has always been yours.</p>
+          <h1 id="waitlist-v3-title">You don’t need more <span className="waitlist-v3-headline-join">strategy. <span className="waitlist-v3-headline-accent">You need to</span></span><span className="waitlist-v3-headline-accent"> lead with your frequency.</span></h1>
+          <p className="waitlist-v3-subheadline">Soul Portal is a private invitation for the creative woman ready to lead with her soul story, to finally write that book, record the song, launch the business &amp; create the content. Knowing she is more than enough and totally worth more.</p>
           <button className="waitlist-v3-modal-trigger waitlist-v3-hero-trigger" id="join-v3" type="button" onClick={() => setIsJoinModalOpen(true)}>
-            <span>Join the Soul Portal waitlist</span>
+            <span>Enter The Portal</span>
             <span aria-hidden="true">↗</span>
           </button>
         </section>
@@ -193,8 +199,12 @@ function VersionThree() {
             <p className="waitlist-v1b-kicker">The questions beneath the noise</p>
             <h2 id="waitlist-v3-insight-title">Maybe they aren’t random thoughts.</h2>
             <ol>
-              {waitlistQuestions.slice(1).map((question, index) => (
-                <li key={question}><span>0{index + 2}</span><p>{question}</p></li>
+              {[
+                'Why does everything have to be perfect before I post it, before I put anything out there?',
+                'Why do I overthink, overanalyze, and go around in the same loop of perfectionism over and over again?',
+                'Why does wanting more money, more visibility, more out of life feel like I’m asking for too much?',
+              ].map((question, index) => (
+                <li key={question}><span>0{index + 1}</span><p>“{question}”</p></li>
               ))}
             </ol>
           </div>
@@ -208,7 +218,6 @@ function VersionThree() {
               <span>Join the Soul Portal waitlist</span>
               <span aria-hidden="true">↗</span>
             </button>
-            <small>First one in gets access to something I’m not posting publicly yet.</small>
           </div>
         </section>
       </main>
@@ -240,13 +249,17 @@ function VersionThree() {
 
       <section className="waitlist-v1b-founder" aria-labelledby="waitlist-v3-founder-title">
         <div className="waitlist-v1b-founder-image">
-          <Image src="/images/daniela-closeup-portrait.webp" alt="Daniela smiling in an editorial portrait" fill sizes="(max-width: 820px) 100vw, 42vw" />
+          <Image src="/images/daniela2.jpeg" alt="Daniela smiling beside a studio microphone" fill sizes="(max-width: 820px) 100vw, 42vw" />
         </div>
         <div className="waitlist-v1b-founder-copy">
-          <p>A note from Daniela</p>
+          <p>Hi. I’m Daniela.</p>
           <h2 id="waitlist-v3-founder-title">This is my soul speaking to yours.</h2>
-          <p>I know what it’s like to have so much bubbling up inside of you, but to play small in releasing it. To overthink every word so it doesn’t sound cringey. To wonder what everyone would think if they saw the real you.</p>
-          <p>I created Soul Portal for the woman who is ready to stop creating for approval and start creating because it feels like coming home. Everything you need is already inside you.</p>
+          <p>I know what it’s like to have so much bubbling up inside of you, but to still be playing small. The perfectionism loop is real, and I’ve lived every part of it. Overthinking every word so it doesn’t sound cringey. Wondering what people would think if they saw the real you.</p>
+          <p>And this is exactly why a new era has come. A total human renaissance, where women stop performing and start creating from their soul. I built Soul Portal for the woman ready to be part of it, for such a time as this.</p>
+          <div className="waitlist-v3-socials" aria-label="Follow Daniela">
+            <a href="https://www.instagram.com/thedaniela.ion?igsi=eHNtdm1wcG8ydGZv&amp;utm_source=qr" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            <a href="https://www.linkedin.com/in/danielaion" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </section>
 
@@ -258,11 +271,11 @@ function VersionThree() {
         <div className="waitlist-v1b-faq-list">
           <details>
             <summary>What is Soul Portal?</summary>
-            <p>Soul Portal: Splendor of Unique Love is a private seven-minute audio experience being created to help you quiet external noise, reconnect with your own voice, and hear the next honest move that already feels like yours.</p>
+            <p>Soul Portal: Splendour of Unique Love is a high frequency community. A home, where creative entrepreneurial women are ready to express their full soul story through their products and services in this era of the human renaissance.</p>
           </details>
           <details>
             <summary>Who is it for?</summary>
-            <p>It is for women who feel caught between creative desire and perfectionism—especially when overthinking, visibility, or other people’s opinions make their own voice harder to hear.</p>
+            <p>It’s for the woman caught between creative desire and the perfectionism spiral, ready to stop overthinking, stop overriding her intuition, and step into her fullest expression. She’s ready to go back into her creative flow, trust her own intuition, and explore her highest soul expression. Whether it’s publishing the book, recording the song, launching the business, or launching the digital products, she’s ready to do all of it. She’s ready to take on whatever’s held her back from playing small, and meet the highest soul version of herself inside the Soul Portal.</p>
           </details>
           <details>
             <summary>What happens after I join?</summary>
@@ -274,7 +287,7 @@ function VersionThree() {
           </details>
           <details>
             <summary>When will it open?</summary>
-            <p>A public opening date has not been announced. Waitlist members will be told first when verified launch details are available—without a fake countdown or manufactured deadline.</p>
+            <p>A public opening date has not been announced. Waitlist members will be told first when verified launch details are available.</p>
           </details>
         </div>
         <button className="waitlist-v3-modal-trigger waitlist-v3-faq-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>
@@ -285,7 +298,7 @@ function VersionThree() {
 
       <footer className="waitlist-footer waitlist-footer-v1b">
         <p>Soul Portal</p>
-        <p>Splendor of Unique Love</p>
+        <p>Splendour of Unique Love</p>
         <p>© Daniela</p>
       </footer>
     </div>
@@ -346,7 +359,7 @@ function VersionOneB() {
   return (
     <div className="waitlist-concept waitlist-concept-v1b">
       <nav className="waitlist-nav-v1b" aria-label="Waitlist navigation">
-        <a className="waitlist-v1b-program" href="#top-v1b">Soul Portal <em>Splendor of Unique Love</em></a>
+        <a className="waitlist-v1b-program" href="#top-v1b">Soul Portal <em>Splendour of Unique Love</em></a>
         <a className="waitlist-v1b-nav-cta" href="#join-v1b" onClick={() => trackWaitlistEvent('waitlist_nav_click', getWaitlistAttribution())}>Join the Soul Portal waitlist</a>
       </nav>
 
@@ -431,7 +444,7 @@ function VersionOneB() {
         <div className="waitlist-v1b-faq-list">
           <details>
             <summary>What is Soul Portal?</summary>
-            <p>Soul Portal: Splendor of Unique Love is a private seven-minute audio experience being created to help you quiet external noise, reconnect with your own voice, and hear the next honest move that already feels like yours.</p>
+            <p>Soul Portal: Splendour of Unique Love is a private seven-minute audio experience being created to help you quiet external noise, reconnect with your own voice, and hear the next honest move that already feels like yours.</p>
           </details>
           <details>
             <summary>Who is it for?</summary>
@@ -455,7 +468,7 @@ function VersionOneB() {
 
       <footer className="waitlist-footer waitlist-footer-v1b">
         <p>Soul Portal</p>
-        <p>Splendor of Unique Love</p>
+        <p>Splendour of Unique Love</p>
         <p><a href="/privacy">Privacy</a> · © Daniela</p>
       </footer>
     </div>

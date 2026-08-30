@@ -5,7 +5,7 @@ export default function PrivacyPage() {
   return (
     <main className="privacy-page">
       <nav className="privacy-nav">
-        <Link href="/waitlist">Soul Portal <em>Splendor of Unique Love</em></Link>
+        <Link href="/waitlist">Soul Portal <em>Splendour of Unique Love</em></Link>
         <Link href="/waitlist">Return to the waitlist</Link>
       </nav>
 
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
       <footer className="privacy-footer">
         <p>Soul Portal</p>
-        <p>Splendor of Unique Love</p>
+        <p>Splendour of Unique Love</p>
       </footer>
     </main>
   );
