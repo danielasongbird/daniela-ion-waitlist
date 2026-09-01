@@ -1773,13 +1773,178 @@
   transform: translate(5px, 5px);
 }
 
+.waitlist-v3-modal-error {
+  margin: 2px 0 7px;
+  color: #8f2f59;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.waitlist-v3-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: waitlist-v3-success-enter 520ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.waitlist-v3-success-mark {
+  position: relative;
+  width: 154px;
+  height: 154px;
+  display: grid;
+  margin: 2px auto 30px;
+  place-items: center;
+}
+
+.waitlist-v3-success-mark svg {
+  position: relative;
+  z-index: 2;
+  width: 118px;
+  height: 118px;
+  filter: drop-shadow(6px 7px 0 rgb(55 32 68 / 24%));
+  overflow: visible;
+  animation: waitlist-v3-success-pop 650ms cubic-bezier(.18, .9, .24, 1.35) both;
+}
+
+.waitlist-v3-success-mark circle {
+  fill: var(--v3-pink);
+  stroke: var(--v3-plum);
+  stroke-width: 2;
+}
+
+.waitlist-v3-success-mark path {
+  fill: none;
+  stroke: var(--v3-cream);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+  animation: waitlist-v3-success-check 620ms 360ms ease-out forwards;
+}
+
+.waitlist-v3-success-orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(168 76 121 / 35%);
+  border-radius: 50%;
+  animation: waitlist-v3-success-orbit 9s linear infinite;
+}
+
+.waitlist-v3-success-orbit::after {
+  position: absolute;
+  top: 14px;
+  right: 13px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--v3-rose);
+  content: '';
+}
+
+.waitlist-v3-success-orbit-two {
+  inset: 18px;
+  border-color: rgb(55 32 68 / 25%);
+  animation-direction: reverse;
+  animation-duration: 7s;
+}
+
+.waitlist-v3-success-orbit-two::after {
+  top: auto;
+  right: auto;
+  bottom: 5px;
+  left: 22px;
+  width: 7px;
+  height: 7px;
+  background: var(--v3-plum);
+}
+
+.waitlist-v3-success .waitlist-v1b-kicker { margin-bottom: 12px; }
+
+.waitlist-v3-success h2 {
+  max-width: 430px;
+  margin-bottom: 18px;
+}
+
+.waitlist-v3-success > p:not(.waitlist-v1b-kicker, .waitlist-v3-success-script) {
+  max-width: 430px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.waitlist-v3-success-script {
+  margin: 23px 0 26px;
+  color: var(--v3-rose);
+  font-family: var(--font-family-handwritten);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  transform: rotate(-2deg);
+}
+
+.waitlist-v3-success > button {
+  width: min(360px, 100%);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border: 1px solid var(--v3-plum);
+  background: var(--v3-pink);
+  color: #fff;
+  box-shadow: 5px 5px 0 var(--v3-plum);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.waitlist-v3-success > button:hover,
+.waitlist-v3-success > button:focus-visible {
+  box-shadow: 2px 2px 0 var(--v3-plum);
+  filter: brightness(1.05);
+  outline: none;
+  transform: translate(3px, 3px);
+}
+
+@keyframes waitlist-v3-success-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes waitlist-v3-success-pop {
+  from { opacity: 0; transform: scale(.45) rotate(-12deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes waitlist-v3-success-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes waitlist-v3-success-orbit {
+  to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .waitlist-concept-v3 .waitlist-v1b-nav-cta,
   .waitlist-v3-modal-trigger,
   .waitlist-v3-modal-close,
-  .waitlist-v3-modal-form > button {
+  .waitlist-v3-modal-form > button,
+  .waitlist-v3-success,
+  .waitlist-v3-success-mark svg,
+  .waitlist-v3-success-mark path,
+  .waitlist-v3-success-orbit,
+  .waitlist-v3-success > button {
+    animation: none;
     transition: none;
   }
+
+  .waitlist-v3-success-mark path { stroke-dashoffset: 0; }
 
   .waitlist-v3-socials a {
     transition: none;
