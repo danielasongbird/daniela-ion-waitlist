@@ -2,6 +2,7 @@
 
 import type { FormEvent, MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { submitLead } from './lib/submitLead';
 
 type Signal = 'quiet' | 'clear' | 'ready';
 
@@ -74,6 +75,7 @@ export default function SoulQuizModal() {
   const [answers, setAnswers] = useState<Array<Signal | null>>([null, null, null]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const resultSignal = useMemo<Signal>(() => {
     const counts: Record<Signal, number> = { quiet: 0, clear: 0, ready: 0 };
@@ -97,6 +99,7 @@ export default function SoulQuizModal() {
       setAnswers([null, null, null]);
       setName('');
       setEmail('');
+      setIsSubmitting(false);
       dialog.showModal();
     };
 
@@ -124,12 +127,33 @@ export default function SoulQuizModal() {
     setAnswers((current) => current.map((answer, index) => (index === questionIndex ? signal : answer)));
   };
 
-  const moveForward = () => setScreen((current) => Math.min(current + 1, 4));
+  const moveForward = () => {
+    if (screen === questions.length) {
+      void submitLead({
+        consent: true,
+        email,
+        firstName: name,
+        flow: 'audio',
+        quizAnswers: answers.filter((answer): answer is Signal => answer !== null),
+        resultSignal,
+      }).catch(() => undefined);
+    }
+    setScreen((current) => Math.min(current + 1, 4));
+  };
   const moveBack = () => setScreen((current) => Math.max(current - 1, 0));
 
-  const submitSignIn = (event: FormEvent<HTMLFormElement>) => {
+  const submitSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setScreen(1);
+    if (isSubmitting) return;
+
+    const company = String(new FormData(event.currentTarget).get('company') ?? '');
+    setIsSubmitting(true);
+    try {
+      await submitLead({ company, consent: true, email, firstName: name, flow: 'audio' });
+      setScreen(1);
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   const isQuestion = screen >= 1 && screen <= questions.length;
@@ -170,7 +194,7 @@ export default function SoulQuizModal() {
               <p className="soul-lede">
                 A quiet practice to turn down everyone else&apos;s voice and hear what has been yours all along.
               </p>
-              <form className="soul-signin soul-signin-first" onSubmit={submitSignIn}>
+              <form aria-busy={isSubmitting} className="soul-signin soul-signin-first" onSubmit={submitSignIn}>
                 <div className="soul-fields">
                   <label>
                     <span>First name</span>
@@ -181,7 +205,8 @@ export default function SoulQuizModal() {
                     <input autoComplete="email" onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" required type="email" value={email} />
                   </label>
                 </div>
-                <button className="soul-primary soul-optin-button" type="submit">Send my private audio <span aria-hidden="true">→</span></button>
+                <input aria-hidden="true" autoComplete="off" className="soul-honeypot" name="company" tabIndex={-1} type="text" />
+                <button className="soul-primary soul-optin-button" disabled={isSubmitting} type="submit">Send my private audio <span aria-hidden="true">→</span></button>
                 <p className="soul-next-cue"><strong>Next:</strong> a 60-second reflection to reveal what your inner signal needs now.</p>
                 <small className="soul-trust-line">Private by design · No spam · Unsubscribe anytime</small>
               </form>

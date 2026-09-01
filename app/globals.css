@@ -1692,6 +1692,7 @@ h1 em {
 .soul-signin-first .soul-fields input{height:50px;border-color:color-mix(in srgb,var(--color-brand-black) 42%,transparent);background:color-mix(in srgb,white 64%,var(--color-brand-peach));font-size:13px;transition:border-color var(--duration-fast),box-shadow var(--duration-fast),background var(--duration-fast)}
 .soul-signin-first .soul-fields input:hover{border-color:var(--color-brand-black);background:white}
 .soul-signin-first .soul-fields input::placeholder{color:color-mix(in srgb,var(--color-brand-black) 42%,transparent)}
+.soul-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
 .soul-optin-button{display:flex;width:100%;align-items:center;justify-content:center;gap:10px;font-size:13px;letter-spacing:.01em}
 .soul-optin-button span{font-size:18px;line-height:1;transition:transform var(--duration-fast)}
 .soul-optin-button:hover span{transform:translateX(4px)}

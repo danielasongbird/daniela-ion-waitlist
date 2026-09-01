@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, type FormEvent } from 'react';
+import { submitLead } from '../lib/submitLead';
 
 const waitlistQuestions = [
   'Why does everything have to be perfect before I’ll let anyone see it?',
@@ -179,6 +180,30 @@ export function VersionTwo() {
 
 export function VersionThree() {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleVersionThreeSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (isSubmitting || !form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    setIsSubmitting(true);
+    try {
+      await submitLead({
+        company: String(formData.get('company') ?? ''),
+        consent: formData.get('consent') === 'on',
+        email: String(formData.get('email') ?? ''),
+        firstName: String(formData.get('name') ?? ''),
+        flow: 'waitlist',
+        waitlistVersion: 'v3',
+      });
+      form.reset();
+      setIsJoinModalOpen(false);
+    } catch {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div className="waitlist-concept waitlist-concept-v3 waitlist-v3-palette-v1">
@@ -243,7 +268,7 @@ export function VersionThree() {
             <p className="waitlist-v1b-kicker">Your private invitation</p>
             <h2 id="waitlist-v3-modal-title">Join the Soul Portal waitlist.</h2>
             <p>Be first to receive the private reveal and early-access details before they are shared publicly.</p>
-            <form className="waitlist-v3-modal-form" onSubmit={(event) => event.preventDefault()}>
+            <form aria-busy={isSubmitting} className="waitlist-v3-modal-form" onSubmit={handleVersionThreeSubmit}>
               <label htmlFor="waitlist-v3-name">First name</label>
               <input id="waitlist-v3-name" name="name" type="text" autoComplete="given-name" placeholder="Your first name" required />
               <label htmlFor="waitlist-v3-email">Email address</label>
@@ -252,7 +277,8 @@ export function VersionThree() {
                 <input name="consent" type="checkbox" required />
                 <span>I agree to receive Soul Portal emails. I can unsubscribe at any time.</span>
               </label>
-              <button type="submit">Join the Soul Portal waitlist <BoldArrow /></button>
+              <input className="waitlist-v1b-honeypot" name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <button disabled={isSubmitting} type="submit">Join the Soul Portal waitlist <BoldArrow /></button>
             </form>
             <small>Private by design. No spam. Your details are never sold.</small>
           </section>
