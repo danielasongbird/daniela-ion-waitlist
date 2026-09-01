@@ -21,8 +21,8 @@
       "custom_domain": true
     },
     {
-      "pattern": "danielaion.com/*",
-      "zone_name": "danielaion.com"
+      "pattern": "danielaion.com",
+      "custom_domain": true
     }
   ]
 }
