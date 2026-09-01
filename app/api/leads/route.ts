@@ -125,16 +125,15 @@ async function syncBrevoContact(payload: LeadPayload): Promise<void> {
   if (!response.ok) throw new IntegrationError('brevo_contact_sync_failed');
 }
 
-async function sendAudioEmail(payload: LeadPayload): Promise<void> {
+async function sendTemplateEmail(
+  payload: LeadPayload,
+  templateId: number,
+  params: Record<string, string>,
+): Promise<void> {
   const apiKey = requiredEnvironment('BREVO_API_KEY');
-  const templateId = parsePositiveInteger(requiredEnvironment('BREVO_AUDIO_TEMPLATE_ID'), 'BREVO_AUDIO_TEMPLATE_ID');
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     body: JSON.stringify({
-      params: {
-        AUDIO_URL: process.env.SOUL_AUDIO_URL?.trim() ?? '',
-        FIRSTNAME: payload.firstName ?? '',
-        RESULT_SIGNAL: payload.resultSignal ?? '',
-      },
+      params,
       templateId,
       to: [{ email: payload.email, ...(payload.firstName ? { name: payload.firstName } : {}) }],
     }),
@@ -143,6 +142,26 @@ async function sendAudioEmail(payload: LeadPayload): Promise<void> {
   });
 
   if (!response.ok) throw new IntegrationError('brevo_email_send_failed');
+}
+
+async function sendAudioEmail(payload: LeadPayload): Promise<void> {
+  const templateId = parsePositiveInteger(requiredEnvironment('BREVO_AUDIO_TEMPLATE_ID'), 'BREVO_AUDIO_TEMPLATE_ID');
+  await sendTemplateEmail(payload, templateId, {
+    AUDIO_URL: process.env.SOUL_AUDIO_URL?.trim() ?? '',
+    FIRSTNAME: payload.firstName ?? '',
+    RESULT_SIGNAL: payload.resultSignal ?? '',
+  });
+}
+
+async function sendWaitlistConfirmationEmail(payload: LeadPayload): Promise<boolean> {
+  const configuredTemplateId = process.env.BREVO_WAITLIST_TEMPLATE_ID?.trim();
+  if (!configuredTemplateId) return false;
+
+  const templateId = parsePositiveInteger(configuredTemplateId, 'BREVO_WAITLIST_TEMPLATE_ID');
+  await sendTemplateEmail(payload, templateId, {
+    FIRSTNAME: payload.firstName ?? '',
+  });
+  return true;
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -158,7 +177,7 @@ export async function POST(request: Request): Promise<Response> {
     const lead = await upsertLead(payload);
     await syncBrevoContact(payload);
 
-    if (payload.flow === 'audio' && !lead.email_sent_at) {
+    if (!lead.email_sent_at && payload.flow === 'audio') {
       try {
         await sendAudioEmail(payload);
         const deliveredAt = new Date().toISOString();
@@ -174,10 +193,26 @@ export async function POST(request: Request): Promise<Response> {
         });
         throw error;
       }
+    } else if (!lead.email_sent_at && payload.flow === 'waitlist') {
+      try {
+        const confirmationSent = await sendWaitlistConfirmationEmail(payload);
+        const deliveredAt = new Date().toISOString();
+        await updateLeadDelivery(lead.id, {
+          brevo_contact_synced_at: deliveredAt,
+          delivery_status: confirmationSent ? 'confirmed' : 'subscribed',
+          email_sent_at: confirmationSent ? deliveredAt : null,
+        });
+      } catch (error) {
+        await updateLeadDelivery(lead.id, {
+          brevo_contact_synced_at: new Date().toISOString(),
+          delivery_status: 'failed',
+        });
+        throw error;
+      }
     } else {
       await updateLeadDelivery(lead.id, {
         brevo_contact_synced_at: new Date().toISOString(),
-        delivery_status: payload.flow === 'waitlist' ? 'subscribed' : 'sent',
+        delivery_status: payload.flow === 'waitlist' ? 'confirmed' : 'sent',
       });
     }
 

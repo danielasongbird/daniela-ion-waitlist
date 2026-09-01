@@ -45,6 +45,7 @@ test('persists, subscribes, and sends an audio lead through server-side integrat
     BREVO_API_KEY: process.env.BREVO_API_KEY,
     BREVO_AUDIO_LIST_ID: process.env.BREVO_AUDIO_LIST_ID,
     BREVO_AUDIO_TEMPLATE_ID: process.env.BREVO_AUDIO_TEMPLATE_ID,
+    BREVO_WAITLIST_TEMPLATE_ID: process.env.BREVO_WAITLIST_TEMPLATE_ID,
     SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
     SUPABASE_URL: process.env.SUPABASE_URL,
   };
@@ -79,6 +80,57 @@ test('persists, subscribes, and sends an audio lead through server-side integrat
       'https://api.brevo.com/v3/contacts',
       'https://api.brevo.com/v3/smtp/email',
       'https://project.supabase.co/rest/v1/waitlist_leads?id=eq.00000000-0000-0000-0000-000000000001',
+    ]);
+  } finally {
+    globalThis.fetch = originalFetch;
+    Object.entries(originalEnvironment).forEach(([key, value]) => {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    });
+  }
+});
+
+test('subscribes and sends a configured waitlist confirmation once', async () => {
+  const originalFetch = fetch;
+  const originalEnvironment = {
+    ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
+    BREVO_API_KEY: process.env.BREVO_API_KEY,
+    BREVO_WAITLIST_LIST_ID: process.env.BREVO_WAITLIST_LIST_ID,
+    BREVO_WAITLIST_TEMPLATE_ID: process.env.BREVO_WAITLIST_TEMPLATE_ID,
+    SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+  };
+  const calls: string[] = [];
+
+  process.env.ALLOWED_ORIGINS = 'https://waitlist.danielaion.com';
+  process.env.BREVO_API_KEY = 'test-key';
+  process.env.BREVO_WAITLIST_LIST_ID = '7';
+  process.env.BREVO_WAITLIST_TEMPLATE_ID = '42';
+  process.env.SUPABASE_SECRET_KEY = 'test-secret-key';
+  process.env.SUPABASE_URL = 'https://project.supabase.co';
+
+  globalThis.fetch = async (input) => {
+    const url = String(input);
+    calls.push(url);
+    if (url.includes('/rest/v1/waitlist_leads?')) {
+      return Response.json([{ email_sent_at: null, id: '00000000-0000-0000-0000-000000000002' }]);
+    }
+    return new Response(null, { status: url.includes('/rest/v1/waitlist_leads?id=') ? 204 : 201 });
+  };
+
+  try {
+    const response = await POST(new Request('https://waitlist.danielaion.com/api/leads', {
+      body: JSON.stringify({ consent: true, email: 'person@example.com', firstName: 'Person', flow: 'waitlist' }),
+      headers: { 'Content-Type': 'application/json', Origin: 'https://waitlist.danielaion.com' },
+      method: 'POST',
+    }));
+
+    assert.equal(response.status, 200);
+    assert.deepEqual(calls, [
+      'https://project.supabase.co/rest/v1/waitlist_leads?on_conflict=email,flow',
+      'https://api.brevo.com/v3/contacts',
+      'https://api.brevo.com/v3/smtp/email',
+      'https://project.supabase.co/rest/v1/waitlist_leads?id=eq.00000000-0000-0000-0000-000000000002',
     ]);
   } finally {
     globalThis.fetch = originalFetch;

@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "soul-portal",
+  "account_id": "550a79065cd03aac65b870f5ab52395b",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": [
     "nodejs_compat"
@@ -13,5 +14,11 @@
   },
   "cache": {
     "enabled": true
-  }
+  },
+  "routes": [
+    {
+      "pattern": "waitlist.danielaion.com",
+      "custom_domain": true
+    }
+  ]
 }
