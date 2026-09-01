@@ -45,7 +45,6 @@ test('persists, subscribes, and sends an audio lead through server-side integrat
     BREVO_API_KEY: process.env.BREVO_API_KEY,
     BREVO_AUDIO_LIST_ID: process.env.BREVO_AUDIO_LIST_ID,
     BREVO_AUDIO_TEMPLATE_ID: process.env.BREVO_AUDIO_TEMPLATE_ID,
-    BREVO_WAITLIST_TEMPLATE_ID: process.env.BREVO_WAITLIST_TEMPLATE_ID,
     SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
     SUPABASE_URL: process.env.SUPABASE_URL,
   };
@@ -90,30 +89,32 @@ test('persists, subscribes, and sends an audio lead through server-side integrat
   }
 });
 
-test('subscribes and sends a configured waitlist confirmation once', async () => {
+test('subscribes and sends a branded waitlist confirmation once', async () => {
   const originalFetch = fetch;
   const originalEnvironment = {
     ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
     BREVO_API_KEY: process.env.BREVO_API_KEY,
     BREVO_WAITLIST_LIST_ID: process.env.BREVO_WAITLIST_LIST_ID,
-    BREVO_WAITLIST_TEMPLATE_ID: process.env.BREVO_WAITLIST_TEMPLATE_ID,
     SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
     SUPABASE_URL: process.env.SUPABASE_URL,
   };
   const calls: string[] = [];
+  let emailPayload: Record<string, unknown> | undefined;
 
   process.env.ALLOWED_ORIGINS = 'https://waitlist.danielaion.com';
   process.env.BREVO_API_KEY = 'test-key';
   process.env.BREVO_WAITLIST_LIST_ID = '7';
-  process.env.BREVO_WAITLIST_TEMPLATE_ID = '42';
   process.env.SUPABASE_SECRET_KEY = 'test-secret-key';
   process.env.SUPABASE_URL = 'https://project.supabase.co';
 
-  globalThis.fetch = async (input) => {
+  globalThis.fetch = async (input, init) => {
     const url = String(input);
     calls.push(url);
     if (url.includes('/rest/v1/waitlist_leads?')) {
       return Response.json([{ email_sent_at: null, id: '00000000-0000-0000-0000-000000000002' }]);
+    }
+    if (url.includes('/v3/smtp/email')) {
+      emailPayload = JSON.parse(String(init?.body)) as Record<string, unknown>;
     }
     return new Response(null, { status: url.includes('/rest/v1/waitlist_leads?id=') ? 204 : 201 });
   };
@@ -132,6 +133,12 @@ test('subscribes and sends a configured waitlist confirmation once', async () =>
       'https://api.brevo.com/v3/smtp/email',
       'https://project.supabase.co/rest/v1/waitlist_leads?id=eq.00000000-0000-0000-0000-000000000002',
     ]);
+    assert.deepEqual(emailPayload?.sender, { email: 'hello@danielaion.com', name: 'Daniela Ion' });
+    assert.deepEqual(emailPayload?.replyTo, { email: 'daniela@jacobsenoffice.com', name: 'Daniela Ion' });
+    assert.equal(emailPayload?.subject, 'You’re on the Soul Portal waitlist');
+    assert.match(String(emailPayload?.htmlContent), /Hi Person,/);
+    assert.match(String(emailPayload?.htmlContent), /#372044/);
+    assert.equal('templateId' in (emailPayload ?? {}), false);
   } finally {
     globalThis.fetch = originalFetch;
     Object.entries(originalEnvironment).forEach(([key, value]) => {

@@ -19,6 +19,10 @@
     {
       "pattern": "waitlist.danielaion.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "danielaion.com",
+      "custom_domain": true
     }
   ]
 }
