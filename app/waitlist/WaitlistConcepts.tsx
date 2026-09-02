@@ -340,7 +340,7 @@ export function VersionThree() {
           </details>
           <details>
             <summary>Who is it for?</summary>
-            <p>It’s for the woman caught between creative desire and the perfectionism spiral, ready to stop overthinking, stop overriding her intuition, and step into her fullest expression. She’s ready to go back into her creative flow, trust her own intuition, and explore her highest soul expression. Whether it’s publishing the book, recording the song, launching the business, or launching the digital products, she’s ready to do all of it. She’s ready to take on whatever’s held her back from playing small, and meet the highest soul version of herself inside the Soul Portal.</p>
+            <p>It’s for the woman caught between creative desire and the perfectionism spiral, ready to stop overthinking, stop overriding her intuition, and step into her fullest expression. She’s ready to go back into her creative flow, trust her own intuition. Whether it’s publishing the book, recording the song, launching the business, or launching the digital products, she’s ready to do all of it. She’s ready to take on whatever’s held her back from playing small, and meet the highest soul version of herself inside the Soul Portal.</p>
           </details>
           <details>
             <summary>What happens after I join?</summary>
