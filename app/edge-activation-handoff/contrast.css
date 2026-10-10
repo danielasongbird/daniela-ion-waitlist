@@ -1,0 +1,307 @@
+/* Section 23: split screen with motion (design round 27) */
+.hb-cc2 {
+  padding-top: 104px;
+  background:
+    radial-gradient(circle at 50% 0%, rgb(203 176 237 / 26%), transparent 45%),
+    var(--v11-cream);
+  color: var(--v11-plum);
+}
+
+.hb-cc2-head {
+  text-align: center;
+}
+
+.hb-cc2-split {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 56px;
+}
+
+.hb-cc2-a,
+.hb-cc2-b {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  padding-top: 60px;
+  padding-bottom: 64px;
+  opacity: 0;
+  transition: transform .9s cubic-bezier(.2, .8, .2, 1), opacity .9s ease;
+}
+
+.hb-cc2-a {
+  padding-right: 72px;
+  padding-left: max(32px, calc((100vw - 990px) / 2));
+  background:
+    repeating-linear-gradient(0deg, rgb(55 32 68 / 6%) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(90deg, rgb(55 32 68 / 6%) 0 1px, transparent 1px 44px),
+    #ece5ef;
+  color: rgb(55 32 68 / 68%);
+  transform: translateX(-60px);
+  animation: hb-cc2-grid 14s linear infinite;
+}
+
+.hb-cc2-b {
+  padding-right: max(32px, calc((100vw - 990px) / 2));
+  padding-left: 72px;
+  background:
+    radial-gradient(ellipse at 75% 115%, rgb(255 214 190 / 55%), transparent 60%),
+    linear-gradient(160deg, #7a3d6e, #c0668f 70%, #f3a9b8);
+  color: #fff;
+  transform: translateX(60px);
+}
+
+.hb-cc2-split.is-in .hb-cc2-a,
+.hb-cc2-split.is-in .hb-cc2-b {
+  opacity: 1;
+  transform: none;
+}
+
+.hb-cc2-split.is-in .hb-cc2-b {
+  transition-delay: .15s;
+}
+
+.hb-cc2-split b {
+  position: relative;
+  display: block;
+  font-family: var(--hb-serif);
+  font-size: 140px;
+  line-height: .8;
+}
+
+.hb-cc2-a b {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(55 32 68 / 28%);
+}
+
+.hb-cc2-b b {
+  background: linear-gradient(100deg, #fff 40%, #ffe3ef 50%, #fff 60%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hb-cc2-shimmer 5s ease-in-out infinite;
+}
+
+.hb-cc2-split p {
+  position: relative;
+  max-width: 380px;
+  margin: 22px 0 0;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hb-cc2-b p {
+  font-family: var(--hb-serif);
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+/* A: the rewrite loop */
+.hb-cc2-loop {
+  position: absolute;
+  top: 60px;
+  right: 72px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px dashed rgb(55 32 68 / 22%);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 55%);
+}
+
+.hb-cc2-spin {
+  color: rgb(55 32 68 / 45%);
+  font-size: 18px;
+  font-style: normal;
+  line-height: 1;
+  animation: hb-cc2-spin 2.4s linear infinite;
+}
+
+.hb-cc2-draft {
+  display: flex;
+  align-items: center;
+  width: 110px;
+}
+
+.hb-cc2-typed {
+  height: 8px;
+  border-radius: 99px;
+  background: rgb(55 32 68 / 25%);
+  animation: hb-cc2-rewrite 3.2s steps(12) infinite;
+}
+
+.hb-cc2-caret {
+  width: 2px;
+  height: 16px;
+  margin-left: 3px;
+  background: rgb(55 32 68 / 55%);
+  animation: hb-cc2-blink .8s steps(1) infinite;
+}
+
+/* B: rays, sunrise and sparkles */
+.hb-cc2-rays {
+  position: absolute;
+  right: -30%;
+  bottom: -70%;
+  width: 140%;
+  aspect-ratio: 1;
+  background: repeating-conic-gradient(from 0deg, rgb(255 255 255 / 8%) 0 6deg, transparent 6deg 18deg);
+  -webkit-mask: radial-gradient(circle, #000 20%, transparent 62%);
+  mask: radial-gradient(circle, #000 20%, transparent 62%);
+  animation: hb-cc2-spin 60s linear infinite;
+}
+
+.hb-cc2-sun {
+  position: absolute;
+  right: 10%;
+  bottom: -120px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7ec 0 20%, rgb(255 214 190 / 70%) 34%, transparent 68%);
+  animation: hb-cc2-breathe 5s ease-in-out infinite;
+}
+
+.hb-cc2-sparkles i {
+  position: absolute;
+  bottom: -20px;
+  color: rgb(255 255 255 / 85%);
+  font-style: normal;
+  line-height: 1;
+  animation: hb-cc2-float 6s ease-in infinite;
+}
+
+/* The "or" badge */
+.hb-cc2-or {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--v11-cream);
+  color: var(--v11-plum);
+  font-family: var(--hb-hand);
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgb(55 32 68 / 25%);
+  transform: translate(-50%, -50%);
+}
+
+.hb-cc2-or::after {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--v11-pink);
+  border-radius: 50%;
+  content: "";
+  animation: hb-cc2-ping 2.4s ease-out infinite;
+}
+
+.hb-cc2-either {
+  padding: 56px 16px 104px;
+}
+
+.hb-cc2-either p {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: clamp(21px, 2.2vw, 25px);
+  line-height: 1.35;
+  text-align: center;
+}
+
+.hb-cc2-either em {
+  display: block;
+  color: var(--hb-accent);
+}
+
+@keyframes hb-cc2-grid {
+  to { background-position: 0 44px, 44px 0, 0 0; }
+}
+
+@keyframes hb-cc2-rewrite {
+  0% { width: 0; }
+  45%, 60% { width: 100px; }
+  100% { width: 0; }
+}
+
+@keyframes hb-cc2-blink {
+  50% { opacity: 0; }
+}
+
+@keyframes hb-cc2-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hb-cc2-breathe {
+  0%, 100% { opacity: .75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@keyframes hb-cc2-float {
+  0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-360px) rotate(90deg); }
+}
+
+@keyframes hb-cc2-shimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0 0; }
+}
+
+@keyframes hb-cc2-ping {
+  0% { opacity: .9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+@media (max-width: 860px) {
+  .hb-cc2-split {
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+  }
+
+  .hb-cc2-a,
+  .hb-cc2-b {
+    min-height: 0;
+    padding: 44px 24px 52px;
+  }
+
+  .hb-cc2-split b {
+    font-size: 96px;
+  }
+
+  .hb-cc2-loop {
+    top: 44px;
+    right: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-cc2-a,
+  .hb-cc2-b {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hb-cc2-a,
+  .hb-cc2-b b,
+  .hb-cc2-spin,
+  .hb-cc2-typed,
+  .hb-cc2-caret,
+  .hb-cc2-rays,
+  .hb-cc2-sun,
+  .hb-cc2-sparkles i,
+  .hb-cc2-or::after {
+    animation: none;
+  }
+
+  .hb-cc2-typed {
+    width: 70px;
+  }
+}

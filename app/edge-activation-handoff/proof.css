@@ -1,0 +1,110 @@
+/* Section 4: portrait and signature (design round 4) */
+.hb-pv2 {
+  padding: 96px 0;
+  background: linear-gradient(105deg, rgb(247 221 210 / 92%), rgb(255 249 243 / 94%));
+}
+
+.hb-pv2-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 72px);
+}
+
+.hb-pv2-portrait {
+  position: relative;
+  margin: 0;
+}
+
+/* Full editorial frame (photo crop round: crop 3) */
+.hb-pv2-portrait > div {
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgb(55 32 68 / 18%);
+  background: url('/images/daniela2.jpeg') center 30% / cover no-repeat;
+  box-shadow: 14px 14px 0 rgb(244 139 179 / 30%);
+}
+
+.hb-pv2-portrait figcaption {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--v11-plum);
+  color: var(--v11-cream);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.hb-pv2-portrait figcaption span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5c8a;
+  animation: hb-pv-blink 1.6s ease-in-out infinite;
+}
+
+.hb-pv2-authority {
+  margin: 0;
+  font-family: var(--hb-serif);
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.42;
+}
+
+.hb-pv2-quote {
+  margin: 30px 0 0;
+  padding: 24px 28px;
+  border-left: 4px solid var(--v11-pink);
+  background: rgb(255 255 255 / 70%);
+}
+
+.hb-pv2-quote p {
+  margin: 0;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.hb-pv2-quote footer {
+  margin-top: 10px;
+  color: var(--hb-accent);
+  font-family: var(--hb-hand);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-3deg);
+  transform-origin: left;
+}
+
+.hb-pv2-todo {
+  margin: 20px 0 0;
+}
+
+
+@keyframes hb-pv-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+
+@media (max-width: 860px) {
+  .hb-pv2-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-pv2-portrait {
+    width: min(100%, 460px);
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-pv2-portrait figcaption span {
+    animation: none;
+  }
+}

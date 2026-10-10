@@ -6,11 +6,40 @@ const panelSelector = [
   '.v11-stage-hero',
   '.v11-questions',
   '.v11-about',
+  '.v11-renaissance',
+  '.v11-science',
   '.v11-invitation',
   '.v11-final',
+  '.v11-bio',
 ].join(',');
 
 export default function V11ScrollEffects() {
+  // Panels taller than the viewport stick once their bottom edge is reached,
+  // so the next panel never covers content that hasn't been scrolled into view.
+  useEffect(() => {
+    const panels = Array.from(
+      document.querySelectorAll<HTMLElement>(panelSelector),
+    );
+
+    const updateStickyOffsets = () => {
+      panels.forEach((panel) => {
+        panel.style.removeProperty('top');
+        if (getComputedStyle(panel).position !== 'sticky') return;
+        panel.style.top = `${Math.min(0, window.innerHeight - panel.offsetHeight)}px`;
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(updateStickyOffsets);
+    panels.forEach((panel) => resizeObserver.observe(panel));
+    window.addEventListener('resize', updateStickyOffsets);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateStickyOffsets);
+      panels.forEach((panel) => panel.style.removeProperty('top'));
+    };
+  }, []);
+
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const mobileViewport = window.matchMedia('(max-width: 820px)');

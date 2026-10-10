@@ -1,0 +1,253 @@
+/* Sections 18-19: value, letter + offer card on plum (design rounds 23-24) */
+/* Pink CTA button (same tokens as the original offer card) */
+.hb-of-cta-pink .v11-hero-cta-final {
+  --cta-bg: #f48bb3;
+  --cta-ink: #321b31;
+  --cta-shadow: #fff3ef;
+  --cta-sub-bg: #321b31;
+  --cta-sub-ink: #fff3ef;
+  --cta-arrow-bg: #f7b5cd;
+  --cta-divider: rgb(50 27 49 / 30%);
+}
+
+.hb-of-cta-pink .hb-cta {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.hb-of-cta-pink .hb-cta > p {
+  color: rgb(55 32 68 / 70%);
+}
+
+/* Value: the question leads (design round 24) */
+.hb-vh2-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(40px, 6vw, 72px);
+}
+
+.hb-vh2-label {
+  margin: 0;
+  color: var(--v11-pink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.hb h2.hb-vh2-q {
+  margin: 14px 0 0;
+  color: var(--v11-cream);
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -.03em;
+  line-height: 1.12;
+}
+
+.hb-vh2-aside {
+  margin: 18px 0 0;
+  color: var(--v11-pink);
+  font-family: var(--hb-hand);
+  font-size: 32px;
+  font-weight: 700;
+  transform: rotate(-2deg);
+}
+
+.hb-vh2-copy p {
+  margin: 0;
+  color: rgb(255 249 243 / 82%);
+  font-size: 18px;
+  line-height: 1.95;
+}
+
+.hb-vh2-tag {
+  display: inline-block;
+  padding: 0 12px;
+  border: 1px solid rgb(244 139 179 / 55%);
+  border-radius: 999px;
+  background: rgb(244 139 179 / 12%);
+  color: var(--v11-cream);
+  font-family: var(--hb-serif);
+  line-height: 1.55;
+}
+
+.hb-vh2-copy strong {
+  color: var(--v11-pink);
+}
+
+.hb-vh2-copy .hb-vh2-compare {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px dashed rgb(255 249 243 / 20%);
+  color: rgb(255 249 243 / 70%);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Sub-CTA under the button */
+.hb-of3-time {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding-top: 18px;
+  border-top: 1px dashed rgb(55 32 68 / 18%);
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.hb-of3-time svg {
+  width: 34px;
+  height: 20px;
+  flex: none;
+  fill: none;
+  stroke: var(--hb-accent);
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.hb-of3-time em {
+  color: var(--hb-accent);
+}
+
+.hb-of3-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  margin-top: 80px;
+}
+
+.hb-of3-letter {
+  position: relative;
+  z-index: 1;
+  margin-right: -44px;
+  padding: 46px 84px 40px 40px;
+  background:
+    repeating-linear-gradient(transparent 0 33px, rgb(203 176 237 / 40%) 33px 34px) 0 38px / 100% calc(100% - 38px) no-repeat,
+    #fbf6ff;
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: 19px;
+  line-height: 34px;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 30%);
+  transform: rotate(-2deg);
+}
+
+.hb-of3-letter p {
+  margin: 0;
+}
+
+.hb-of3-letter .hb-of3-letter-lead {
+  margin-bottom: 8px;
+  color: var(--hb-accent);
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.hb-of3-letter .hb-of3-sign {
+  margin-top: 10px;
+  color: var(--hb-accent);
+  font-family: var(--hb-hand);
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.hb-of3-card {
+  position: relative;
+  z-index: 2;
+  padding: 36px 34px 32px;
+  border-radius: 28px;
+  background: linear-gradient(#fffdf8, #fff4ef);
+  color: var(--v11-plum);
+  box-shadow: 0 0 0 8px rgb(244 139 179 / 28%), 0 40px 80px rgb(0 0 0 / 35%);
+  scroll-margin-top: 90px;
+}
+
+.hb-of3-for {
+  margin: 0;
+  color: var(--hb-accent);
+  font-family: var(--hb-hand);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.hb-of3-price {
+  margin: 4px 0 16px;
+  font-family: var(--hb-serif);
+  font-size: 110px;
+  font-weight: 700;
+  letter-spacing: -.06em;
+  line-height: .9;
+}
+
+.hb-of3-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hb-of3-card > ul li {
+  position: relative;
+  padding: 10px 0 10px 24px;
+  border-bottom: 1px solid rgb(55 32 68 / 12%);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.hb-of3-card > ul li::before {
+  position: absolute;
+  left: 2px;
+  color: var(--v11-pink);
+  content: "✦";
+}
+
+.hb-of3-bonus-label {
+  margin: 18px 0 8px;
+  color: var(--hb-accent-deep);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.hb-of3-card .hb-of3-bonuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hb-of3-card .hb-of3-bonuses li {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(244 139 179 / 20%);
+  font-size: 13px;
+}
+
+.hb-of3-card .hb-of3-bonuses li::before {
+  content: none;
+}
+
+.hb-of3-terms {
+  margin: 18px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 860px) {
+  .hb-vh2-grid,
+  .hb-of3-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-of3-letter {
+    margin: 0 0 28px;
+    padding: 36px 26px 30px;
+    transform: none;
+  }
+}
+

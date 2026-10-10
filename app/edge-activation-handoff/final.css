@@ -1,0 +1,164 @@
+/* Section 24: the orb, full screen (design round 28) */
+.hb-fc3 {
+  --fc3-nav: 68px;
+  --fc3-ring: min(740px, calc(100dvh - var(--fc3-nav) - 150px), 92vw);
+
+  position: relative;
+  overflow: hidden;
+  background: #f7eaf2;
+  text-align: center;
+}
+
+.hb-fc3-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: calc(100dvh - var(--fc3-nav));
+}
+
+.hb-fc3-content {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 40px 0;
+}
+
+.hb-fc3-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: .75;
+  filter: blur(70px);
+  animation: hb-fc3-drift 18s ease-in-out infinite alternate;
+}
+
+.hb-fc3-blob.is-1 { top: -140px; left: 8%; width: 520px; height: 520px; background: var(--v11-pink); }
+.hb-fc3-blob.is-2 { top: 26%; right: 4%; width: 460px; height: 460px; background: var(--v11-lilac); animation-delay: -6s; }
+.hb-fc3-blob.is-3 { bottom: 8%; left: 34%; width: 420px; height: 420px; background: var(--v11-peach); animation-delay: -12s; }
+
+/* Audio ring, sized to fit the screen so it is never cropped */
+.hb-fc3-ring {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: var(--fc3-ring);
+  height: var(--fc3-ring);
+  transform: translate(-50%, -50%);
+}
+
+.hb-fc3-ring i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 28px;
+  margin: -14px 0 0 -1.5px;
+  border-radius: 99px;
+  background: rgb(55 32 68 / 22%);
+  transform: rotate(var(--a)) translateY(calc(var(--fc3-ring) / -2 + 14px)) scaleY(.35);
+  animation: hb-fc3-bar 1.6s ease-in-out infinite alternate;
+}
+
+.hb-fc3-ring i:nth-child(3n) {
+  background: var(--hb-accent);
+}
+
+.hb-fc3-kicker {
+  margin: 0 0 16px;
+  color: var(--hb-accent);
+  font-family: var(--hb-hand);
+  font-size: 30px;
+  font-weight: 700;
+  transform: rotate(-1.5deg);
+}
+
+.hb .hb-fc3 h2 {
+  color: var(--v11-plum);
+  font-size: clamp(46px, 5.6vw, 74px);
+}
+
+.hb .hb-fc3 h2 em {
+  display: block;
+  margin-top: 6px;
+}
+
+.hb-fc3-sub {
+  margin: 18px 0 0;
+  color: rgb(55 32 68 / 80%);
+  font-size: 17px;
+}
+
+.hb-fc3 .hb-of-cta-pink .hb-cta {
+  width: min(100%, 470px);
+  margin: 28px auto 0;
+}
+
+.hb-fc3-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  border-top: 1px solid rgb(55 32 68 / 14%);
+  border-bottom: 1px solid rgb(55 32 68 / 14%);
+  background: rgb(255 255 255 / 45%);
+  white-space: nowrap;
+}
+
+.hb-fc3-marquee > div {
+  display: inline-flex;
+  animation: hb-fc3-marquee 36s linear infinite;
+}
+
+.hb-fc3-marquee span {
+  padding-right: 18px;
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: 30px;
+  font-style: italic;
+}
+
+.hb-fc3-marquee i {
+  margin: 0 18px;
+  color: var(--v11-pink);
+  font-style: normal;
+}
+
+.hb-fc3-ps {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 48px 16px 96px;
+}
+
+@keyframes hb-fc3-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.12); }
+  100% { transform: translate(-40px, 20px) scale(.95); }
+}
+
+@keyframes hb-fc3-bar {
+  to { transform: rotate(var(--a)) translateY(calc(var(--fc3-ring) / -2 + 14px)) scaleY(1.1); }
+}
+
+@keyframes hb-fc3-marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 860px) {
+  .hb-fc3-ring {
+    display: none;
+  }
+
+  .hb-fc3-marquee span {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-fc3-blob,
+  .hb-fc3-ring i,
+  .hb-fc3-marquee > div {
+    animation: none;
+  }
+}

@@ -1,0 +1,326 @@
+/* Effects adapted from the approved tutorial tricks, recoloured to the V11 brand */
+
+/* #31 Scroll Progress */
+.hw-progress {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--v11-pink), #d98fb4 55%, var(--v11-lilac)) 0 0 / 100vw 100%;
+  box-shadow: 0 0 10px rgb(244 139 179 / 55%);
+  pointer-events: none;
+}
+
+.hw-progress::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgb(203 176 237 / 70%), 0 0 14px rgb(244 139 179 / 90%);
+  content: "";
+  opacity: var(--tip, 0);
+  translate: 50% -50%;
+  transition: opacity .3s ease;
+}
+
+/* #12 Blur Fade (replay): hidden only once the script is running */
+.hw-bf-ready .bf {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(16px);
+  transition: opacity .6s ease, filter .6s ease, transform .6s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--delay, 0s);
+}
+
+.hw-bf-ready .bf.in {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* #02 Hero Highlight: highlighter sweep behind "Day One" */
+.hw-highlight {
+  margin: 0 -2px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ffd6e3, #f7bcd3) no-repeat left 60% / 0% 80%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-size 1.6s cubic-bezier(.22, 1, .36, 1);
+}
+
+.hw-highlight.on {
+  background-size: 100% 80%;
+}
+
+/* The V11 hero makes every span in the h1 a block; keep the highlight inline */
+.v11-story h1 .hw-highlight {
+  display: inline;
+}
+
+/* #10 Animated Shiny Text: a shine sweeps across "Payment confirmed." */
+.hw-shiny {
+  background: linear-gradient(110deg, var(--v11-plum) 35%, #fff 50%, var(--v11-plum) 65%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hw-shiny 3s linear infinite;
+}
+
+@keyframes hw-shiny {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+/* #08 Border Beam: a light streak travels around the hero portrait (matches its clip-path) */
+.hw-beam {
+  position: absolute;
+  z-index: 2;
+  top: 4%;
+  right: 5%;
+  bottom: 4%;
+  left: 0;
+  border: 3px solid transparent;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000, #000) padding-box, linear-gradient(#000, #000) border-box;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000, #000) padding-box exclude, linear-gradient(#000, #000) border-box;
+}
+
+.hw-beam::after {
+  position: absolute;
+  width: 180px;
+  aspect-ratio: 1;
+  background: linear-gradient(to left, #fff7ec, var(--v11-pink), transparent);
+  content: "";
+  offset-path: rect(0 auto auto 0);
+  offset-anchor: 90% 50%;
+  animation: hw-beam 7s linear infinite;
+}
+
+@keyframes hw-beam {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+
+/* #01 Shimmer Button: a light spins around the edge of both "Go to Soul Portal" buttons */
+.hw-shimmer,
+.hw-shimmer-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hw-shimmer::before,
+.hw-shimmer-cta::before {
+  position: absolute;
+  z-index: -2;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, transparent 0 70%, rgb(255 255 255 / 95%) 85%, transparent 100%);
+  content: "";
+  translate: -50% -50%;
+  animation: hw-shimmer-spin 2.8s linear infinite;
+}
+
+.hw-shimmer::after {
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  background: linear-gradient(180deg, #4a2a5a, var(--v11-plum));
+  box-shadow: inset 0 -8px 12px rgb(255 255 255 / 10%);
+  content: "";
+  transition: box-shadow .3s ease;
+}
+
+.hw-shimmer:hover::after {
+  box-shadow: inset 0 -8px 18px rgb(255 255 255 / 28%);
+}
+
+.hw-shimmer-cta::after {
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  background: var(--cta-bg);
+  content: "";
+}
+
+@keyframes hw-shimmer-spin {
+  to { rotate: 360deg; }
+}
+
+/* #09 Text Generate: words fade from blurry to sharp */
+.hw-tg span {
+  opacity: 0;
+  filter: blur(8px);
+}
+
+.hw-tg.is-in span {
+  animation: hw-tg-in .5s ease forwards;
+  animation-delay: calc(var(--i) * 60ms + 150ms);
+}
+
+@keyframes hw-tg-in {
+  to { opacity: 1; filter: blur(0); }
+}
+
+/* #13 Tracing Beam on the five-day timeline */
+.hw-tb {
+  position: relative;
+}
+
+.hw-dy2-list::before {
+  background: rgb(55 32 68 / 12%);
+  opacity: 1;
+}
+
+.hw-tb-fill {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 27px;
+  width: 2px;
+  height: 0;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, transparent, var(--v11-pink) 25%, var(--hb-accent));
+  box-shadow: 0 0 12px rgb(244 139 179 / 60%);
+  pointer-events: none;
+}
+
+.hw-tb-dot {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--v11-pink);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 6px rgb(244 139 179 / 20%), 0 0 16px rgb(244 139 179 / 60%);
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.hw-dy2-node {
+  z-index: 2;
+}
+
+/* #18 Orbiting Circles: what lives inside Soul Portal, circling the text */
+.hw-portal-ring.is-2 {
+  width: 820px;
+  height: 820px;
+  border-style: dashed;
+  animation: none;
+}
+
+.hw-orbit {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.hw-orbit-item {
+  --r: 410px;
+
+  position: absolute;
+  display: grid;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  place-items: center;
+  border: 1px solid rgb(244 139 179 / 40%);
+  border-radius: 50%;
+  background: #fffdf8;
+  box-shadow: 0 10px 26px rgb(55 32 68 / 12%);
+  animation: hw-orbit 60s linear infinite;
+}
+
+.hw-orbit-item svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--hb-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+@keyframes hw-orbit {
+  from { transform: rotate(var(--angle)) translateY(var(--r)) rotate(calc(var(--angle) * -1)); }
+  to { transform: rotate(calc(var(--angle) + 360deg)) translateY(var(--r)) rotate(calc((var(--angle) + 360deg) * -1)); }
+}
+
+@media (max-width: 860px) {
+  .hw-beam {
+    top: 3%;
+    right: 0;
+    bottom: 3%;
+  }
+
+  .hw-tb-fill {
+    left: 21px;
+  }
+
+  .hw-tb-dot {
+    left: 14px;
+  }
+
+  .hw-orbit {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-bf-ready .bf {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  .hw-highlight {
+    background-size: 100% 80%;
+    transition: none;
+  }
+
+  .hw-shiny {
+    background: none;
+    color: var(--v11-plum);
+    animation: none;
+  }
+
+  .hw-beam::after,
+  .hw-shimmer::before,
+  .hw-shimmer-cta::before {
+    animation: none;
+  }
+
+  .hw-tg span {
+    opacity: 1;
+    filter: none;
+  }
+
+  .hw-tg.is-in span {
+    animation: none;
+  }
+
+  .hw-tb-dot {
+    display: none;
+  }
+
+  .hw-orbit-item {
+    animation-play-state: paused;
+  }
+}
+

@@ -1,0 +1,50 @@
+/* Torn paper: ragged clip-path edges, white fibre backing, crumpled texture */
+.hb-torn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 14px 18px rgb(55 32 68 / 16%));
+}
+
+.hb-torn-back {
+  position: absolute;
+  inset: -7px -4px;
+  background: #fffdf8;
+}
+
+.hb-torn-face {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.hb-torn-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.018' numOctaves='4' seed='3'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='2.4'%3E%3CfeDistantLight azimuth='50' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  background-size: 420px 420px;
+  mix-blend-mode: multiply;
+  opacity: .42;
+  pointer-events: none;
+}
+
+.hb-torn-content {
+  position: relative;
+}
+
+/* Hand-drawn double underline */
+.hb-doodle-underline {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  overflow: visible;
+}
+
+.hb-doodle-underline path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2;
+}

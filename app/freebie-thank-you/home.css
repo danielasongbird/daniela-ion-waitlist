@@ -1,0 +1,90 @@
+/* V2 "your home" (Home.tsx): Daniela in her podcast chair, full bleed and untinted at the top, fading
+   top to bottom (0% to 100%) into the spiral-patterned plum; a cream card in the portal branding
+   (Playfair, pink border, deep rose accents, the wordmark's ✦ between rose-gold hairlines) rises
+   over her chest. */
+
+.pv-home {
+  --pv-home-ink: #2e1a2c;
+  --pv-home-rose: #9c5568;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  padding-bottom: 120px;
+  overflow: clip;
+  background: var(--pv-spiral), var(--pv-bg);
+  color: var(--pv-home-ink);
+}
+
+/* Her face sits about a third of the way down the band */
+.pv-home-photo {
+  position: relative;
+  width: 100%;
+  height: clamp(440px, 60vw, 780px);
+  background: url('/images/daniela-podcast-chair.webp') 50% 27% / cover no-repeat;
+}
+
+/* Top to bottom, 0% to 100% plum, with the spiral pattern coming through as the photo fades */
+.pv-home-photo::after {
+  position: absolute;
+  inset: 0;
+  background:
+    var(--pv-spiral),
+    linear-gradient(180deg, rgb(42 27 45 / 0%) 0%, var(--pv-bg) 100%);
+  content: "";
+}
+
+/* The card rises over the photo's lower edge, around her chest */
+.pv-home-card {
+  position: relative;
+  width: min(820px, calc(100% - 32px));
+  margin-top: clamp(-200px, -14vw, -90px);
+  padding: clamp(34px, 5vw, 60px) clamp(22px, 5vw, 64px);
+  border: 1px solid rgb(226 140 168 / 55%);
+  border-radius: 28px;
+  background: linear-gradient(160deg, #fffaf8, #fbeeed);
+  box-shadow: 0 40px 90px -40px rgb(10 5 10 / 70%);
+}
+
+/* The wordmark's ✦ between rose-gold hairlines */
+.pv-home-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 18px;
+  color: var(--pv-home-rose);
+  font-size: 18px;
+}
+
+.pv-home-mark span {
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d9a2ae);
+}
+
+.pv-home-mark span:last-child {
+  background: linear-gradient(90deg, #d9a2ae, transparent);
+}
+
+.pv .pv-home .pv-label {
+  color: var(--pv-home-rose);
+}
+
+.pv .pv-home h2 {
+  margin: 0 0 22px;
+  color: var(--pv-home-ink);
+  font-size: clamp(34px, 4.6vw, 58px);
+  line-height: 1.08;
+}
+
+.pv .pv-home h2 em {
+  color: var(--pv-home-rose);
+}
+
+.pv-home .pv-lede {
+  max-width: 36rem;
+  margin: 0 auto;
+  color: rgb(46 26 44 / 75%);
+}

@@ -1,0 +1,121 @@
+/* Section 17: podcast ring (design round 22) */
+.hb-pc3 {
+  background:
+    radial-gradient(circle at 50% 16%, rgb(203 176 237 / 32%), transparent 45%),
+    var(--v11-cream);
+}
+
+.hb-pc3-badge {
+  position: relative;
+  width: min(420px, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto 44px;
+}
+
+.hb-pc3-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: hb-pc3-spin 32s linear infinite;
+}
+
+.hb-pc3-ring text {
+  fill: var(--hb-accent);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+}
+
+.hb-pc3-photo {
+  position: absolute;
+  inset: 15%;
+  border: 8px solid #fffdf8;
+  border-radius: 50%;
+  background: url('/images/daniela-podcast-chair.webp') 50% 22% / 190% auto no-repeat;
+  box-shadow: 0 26px 50px rgb(55 32 68 / 22%);
+}
+
+/* Narrow, left-aligned reading column */
+.hb-pc3-copy {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.hb-pc3-lead {
+  margin: 0;
+  color: rgb(55 32 68 / 84%);
+  font-size: 19px;
+  line-height: 1.75;
+}
+
+.hb-pc3-lead mark {
+  color: var(--v11-plum);
+  font-weight: 700;
+  background: linear-gradient(transparent 58%, rgb(244 139 179 / 40%) 58%);
+}
+
+.hb-pc3-a {
+  margin: 36px 0 0;
+  color: rgb(55 32 68 / 70%);
+  font-family: var(--hb-serif);
+  font-size: 21px;
+  font-style: italic;
+}
+
+.hb-pc3-b {
+  margin: 10px 0 0;
+  color: var(--hb-accent);
+  font-family: var(--hb-serif);
+  font-size: clamp(30px, 3.6vw, 42px);
+  letter-spacing: -.035em;
+  line-height: 1.12;
+}
+
+.hb-pc3-line {
+  display: block;
+  width: min(100%, 420px);
+  height: 40px;
+  margin: 28px 0 0;
+  fill: none;
+  stroke: var(--v11-pink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  stroke-dasharray: 700;
+  animation: hb-pc3-draw 5s ease-in-out infinite;
+}
+
+.hb-pc3-todos {
+  display: grid;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.hb-pc3-todos p {
+  margin: 0;
+}
+
+@keyframes hb-pc3-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hb-pc3-draw {
+  0% { stroke-dashoffset: 700; }
+  45%, 80% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -700; }
+}
+
+@media (max-width: 860px) {
+  .hb-pc3-badge {
+    width: min(300px, 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-pc3-ring,
+  .hb-pc3-line {
+    animation: none;
+  }
+}

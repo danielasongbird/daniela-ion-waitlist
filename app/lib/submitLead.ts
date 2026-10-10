@@ -1,3 +1,5 @@
+'use client';
+
 import type { LeadFlow } from './leadCapture';
 
 type SubmitLeadInput = {
@@ -9,6 +11,11 @@ type SubmitLeadInput = {
   quizAnswers?: string[];
   resultSignal?: 'quiet' | 'clear' | 'ready';
   waitlistVersion?: string;
+};
+
+type SubmitLeadResponse = {
+  message?: string;
+  ok?: boolean;
 };
 
 function attribution() {
@@ -31,6 +38,14 @@ export async function submitLead(input: SubmitLeadInput): Promise<void> {
     method: 'POST',
   });
 
-  if (!response.ok) throw new Error('Lead submission failed');
-}
+  let result: SubmitLeadResponse | undefined;
+  try {
+    result = await response.json() as SubmitLeadResponse;
+  } catch {
+    // The status code remains authoritative if an intermediary returns non-JSON.
+  }
 
+  if (!response.ok || result?.ok === false) {
+    throw new Error(result?.message ?? 'We could not save your details. Please try again.');
+  }
+}

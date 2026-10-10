@@ -10,7 +10,6 @@
 
 # testing
 /coverage
-*.tsbuildinfo
 
 # next.js
 /.next/
@@ -33,9 +32,9 @@ yarn-error.log*
 
 # deployment and generated files
 .vercel
-.tools/
 next-env.d.ts
 /dist/
+/admin/
 /.wrangler/
 /outputs/
 /work/

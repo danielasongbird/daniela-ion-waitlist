@@ -1,0 +1,159 @@
+/* Section 6: advice ribbon (design round 7) */
+.hb-ov2 {
+  overflow: hidden;
+  padding: 104px 0;
+  background:
+    linear-gradient(135deg, rgb(203 176 237 / 14%), transparent 42%),
+    var(--v11-cream);
+}
+
+.hb-ov2-head {
+  text-align: center;
+}
+
+.hb .hb-ov2-head h2 {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hb-ov2-told {
+  margin: 40px 0 0;
+  color: var(--hb-accent-deep);
+  font-family: var(--hb-hand);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.hb-ov2-ribbon {
+  margin: 26px 0 0;
+  padding: 22px 0;
+  background: var(--v11-plum);
+  color: var(--v11-cream);
+  transform: rotate(-1.5deg);
+  box-shadow: 0 18px 40px rgb(55 32 68 / 22%);
+}
+
+.hb-ov2-row {
+  display: flex;
+  width: max-content;
+  animation: hb-ov2-marquee 40s linear infinite;
+}
+
+.hb-ov2-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding-right: 28px;
+  font-family: var(--hb-serif);
+  font-size: clamp(26px, 3vw, 38px);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.hb-ov2-row i {
+  color: var(--v11-pink);
+  font-size: .5em;
+  font-style: normal;
+}
+
+.hb-ov2-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes hb-ov2-marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Bottom: concede, then turn (design round 8) */
+.hb-ob3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  margin-top: 72px;
+}
+
+.hb-ob3-para {
+  margin: 0;
+  color: rgb(55 32 68 / 84%);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.hb-ob3-circled {
+  position: relative;
+  display: inline-block;
+  color: var(--v11-plum);
+  font-weight: 700;
+}
+
+.hb-ob3-circled svg {
+  position: absolute;
+  top: -10px;
+  left: -14px;
+  width: calc(100% + 28px);
+  height: calc(100% + 20px);
+  overflow: visible;
+}
+
+.hb-ob3-circled path,
+.hb-ob3-but path {
+  fill: none;
+  stroke: var(--v11-pink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.hb-ob3-but {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: var(--hb-accent-deep);
+  font-family: var(--hb-hand);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hb-ob3-but svg {
+  width: 70px;
+  height: 30px;
+}
+
+.hb-ob3-edit {
+  margin: 0;
+  padding: 32px 30px;
+  background: var(--v11-peach);
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: clamp(24px, 2.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.22;
+  box-shadow: 10px 10px 0 rgb(203 176 237 / 50%);
+}
+
+@media (max-width: 860px) {
+  .hb-ob3 {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-ob3-but svg {
+    transform: rotate(90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-ov2-row {
+    animation: none;
+  }
+}
+

@@ -5,7 +5,7 @@ export default function V11ButtonLab() {
     <div className="v11-hero-cta-wrap">
       <SoulQuizTrigger className="v11-hero-cta-final">
         <span className="v11-hero-cta-copy">
-          <strong>SEND ME THE PRIVATE RESET</strong>
+          <strong>SEND ME MY FREE ACTIVATION</strong>
           <small>GET INSTANT ACCESS</small>
         </span>
         <span className="v11-hero-cta-arrow" aria-hidden="true">

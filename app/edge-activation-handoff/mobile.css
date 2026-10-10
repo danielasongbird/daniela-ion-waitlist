@@ -1,0 +1,139 @@
+/* ===== Mobile polish pass (loaded last so it overrides section styles) ===== */
+
+/* No orphaned last words in headings and kickers, at any width */
+.hb h1,
+.hb h2,
+.hb h3,
+.hb-kicker,
+.hb-sd-concrete,
+.hb-sh1-pretend,
+.hb-cc2-either em {
+  text-wrap: balance;
+}
+
+/* Paragraphs avoid a single orphaned word on the last line */
+.hb p {
+  text-wrap: pretty;
+}
+
+@media (max-width: 860px) {
+  /* Section 13: the pink divider runs along the bottom of the photo once it stacks */
+  .hb-fp3-photo::after {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: 6px;
+  }
+
+  /* Section 23: the "or" badge sits on the seam between A and B */
+  .hb-cc2-or {
+    position: relative;
+    top: auto;
+    left: auto;
+    justify-self: center;
+    margin: -32px 0;
+    transform: none;
+  }
+}
+
+/* Tablets: keep the stacked letter and offer card at a readable width */
+@media (min-width: 601px) and (max-width: 860px) {
+  .hb-of3-letter,
+  .hb-of3-card {
+    width: 100%;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Even section rhythm on phones */
+  .hb-hv2 {
+    padding-bottom: 64px;
+  }
+
+  .hb-pv2,
+  .hb-qv3,
+  .hb-ov2,
+  .hb-rv2 {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .hb-kr1,
+  .hb-cc2 {
+    padding-top: 64px;
+  }
+
+  .hb-gt2 {
+    padding-bottom: 130px;
+  }
+
+  /* CTA button: keep the "one payment · no subscription" tag on one line */
+  .hb .v11-hero-cta-copy small,
+  .hb .v11-supporting-cta-copy small {
+    letter-spacing: .07em;
+    white-space: nowrap;
+  }
+
+  /* Section 11: long paragraphs read better left-aligned; roomier bonus cards */
+  .hb-iv2-prose {
+    text-align: left;
+  }
+
+  .hb-wr-inside {
+    padding: 32px 16px;
+  }
+
+  /* Section 12: slimmer number column */
+  .hb-bv3-grid li {
+    grid-template-columns: 38px minmax(0, 1fr);
+    padding: 22px 20px 20px;
+  }
+
+  .hb-bv3-grid span {
+    font-size: 28px;
+  }
+
+  /* Section 14: replies read like chat bubbles, not full-width slabs */
+  .hb-oj2-ask {
+    padding: 24px 22px;
+  }
+
+  .hb-oj2-reply {
+    max-width: 88%;
+  }
+
+  .hb-oj2-reply p {
+    padding: 16px 18px;
+    font-size: 16px;
+  }
+
+  /* Sections 18-19: tighter offer card */
+  .hb-of3-card {
+    padding: 30px 20px 26px;
+  }
+
+  .hb-of3-price {
+    font-size: 88px;
+  }
+
+  .hb-of3-letter {
+    font-size: 17px;
+    line-height: 32px;
+  }
+
+  /* Section 22: slightly smaller answer text, still aligned under the question */
+  .hb-fq1-answer p {
+    margin-left: 52px;
+    font-size: 15.5px;
+  }
+
+  /* Section 24: smaller kicker so it fits on one line */
+  .hb-fc3-kicker {
+    font-size: 26px;
+  }
+}

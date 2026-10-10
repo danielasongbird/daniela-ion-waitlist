@@ -1,0 +1,161 @@
+/* Section 7: sameness grid with the Human Renaissance feature (design round 9) */
+.hb-mv1-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(36px, 6vw, 72px);
+}
+
+.hb-mv1-prose {
+  margin-top: 28px;
+}
+
+.hb-mv1-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.hb-mv1-tile {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  aspect-ratio: 4 / 5;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 55%);
+  filter: grayscale(1);
+  opacity: .75;
+}
+
+.hb-mv1-tile i {
+  display: block;
+  height: 7px;
+  border-radius: 99px;
+  background: rgb(55 32 68 / 14%);
+}
+
+.hb-mv1-tile .hb-mv1-img {
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 4px;
+  border-radius: 7px;
+  background: rgb(55 32 68 / 10%);
+}
+
+.hb-mv1-tile.is-yours {
+  display: grid;
+  align-content: center;
+  place-items: center;
+  background:
+    radial-gradient(circle at 30% 20%, rgb(255 255 255 / 40%), transparent 60%),
+    linear-gradient(150deg, var(--v11-pink), var(--hb-accent));
+  filter: none;
+  opacity: 1;
+  box-shadow: 0 18px 36px rgb(155 77 134 / 35%);
+  transform: scale(1.08) rotate(-3deg);
+  animation: hb-mv1-pop 3s ease-in-out infinite;
+}
+
+.hb-mv1-yours {
+  color: #fff;
+  font-family: var(--hb-hand);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.hb-mv1-stop {
+  max-width: 760px;
+  margin: 72px auto 0;
+  padding-top: 44px;
+  border-top: 1px solid rgb(55 32 68 / 16%);
+  font-family: var(--hb-serif);
+  font-size: clamp(24px, 2.5vw, 30px);
+  letter-spacing: -.02em;
+  line-height: 1.28;
+  text-align: center;
+}
+
+@keyframes hb-mv1-pop {
+  0%, 100% { transform: scale(1.08) rotate(-3deg); }
+  50% { transform: scale(1.12) rotate(-1deg); }
+}
+
+/* Human Renaissance feature */
+.hb-mv2-renaissance {
+  margin-top: 56px;
+  text-align: center;
+}
+
+.hb-mv2-call {
+  margin: 0;
+  color: var(--hb-accent-deep);
+  font-family: var(--hb-hand);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.hb-mv2-word {
+  margin: 4px 0 0;
+  color: transparent;
+  font-family: var(--hb-serif);
+  font-size: clamp(64px, 11vw, 138px);
+  font-weight: 700;
+  letter-spacing: -.05em;
+  line-height: .86;
+  -webkit-text-stroke: 1.5px var(--hb-accent);
+  background: linear-gradient(90deg, var(--hb-accent), var(--v11-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+}
+
+.hb-mv2-renaissance.is-in .hb-mv2-word {
+  animation: hb-mv2-fill 2.8s .2s ease forwards;
+}
+
+.hb-mv2-body {
+  max-width: 620px;
+  margin: 28px auto 0;
+  font-family: var(--hb-serif);
+  font-size: clamp(21px, 2.2vw, 26px);
+  line-height: 1.35;
+}
+
+.hb-mv2-close {
+  max-width: 680px;
+  margin: 48px auto 0;
+  padding: 26px 30px;
+  border-radius: 16px;
+  background: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  box-shadow: 10px 10px 0 rgb(203 176 237 / 45%);
+}
+
+@keyframes hb-mv2-fill {
+  to { background-size: 100% 100%; }
+}
+
+@media (max-width: 860px) {
+  .hb-mv1-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-mv1-tile.is-yours {
+    animation: none;
+  }
+
+  .hb-mv2-word,
+  .hb-mv2-renaissance.is-in .hb-mv2-word {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}

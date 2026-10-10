@@ -1,0 +1,216 @@
+/* Welcome hero: the home page's V11 hero, flipped, with continuous fireworks (design rounds 1 and 2) */
+
+/* Full-screen stage, like the home hero, but not sticky */
+.hw-stage {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 40px;
+  background: linear-gradient(135deg, var(--v11-cream), var(--v11-peach));
+}
+
+.hw-stage .v11-hero {
+  flex: 1;
+  min-height: calc(100svh - 188px);
+  margin-bottom: 0;
+}
+
+.hw-fomo-link {
+  padding: 1px 0;
+  border-bottom: 2px solid currentColor;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .035em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.v11-nav > div > a.hw-nav-btn {
+  display: inline-block;
+  padding: 12px 17px;
+  border: 1px solid var(--v11-plum);
+  background: var(--v11-cream);
+  color: var(--v11-plum);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.hw-stage .v11-hero-cta-final {
+  text-decoration: none;
+}
+
+/* Flipped layout: portrait left, story right */
+.hw-hv2 {
+  grid-template-columns: 43% 57%;
+}
+
+.hw-hv2 .hw-hv2-photo {
+  background:
+    linear-gradient(180deg, transparent, rgb(55 32 68 / 14%)),
+    url('/images/daniela2.jpeg') center 30% / cover no-repeat;
+  clip-path: inset(4% 5% 4% 0);
+}
+
+.hw-hv2 .v11-story {
+  padding-right: 56px;
+  padding-left: 48px;
+}
+
+.hw-hv2 .v11-deck {
+  margin-top: 22px;
+}
+
+/* Checklist: each tick pops in after the last */
+.hw-hv2-checks {
+  display: grid;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hw-hv2-checks li {
+  position: relative;
+  padding-left: 32px;
+  color: var(--v11-plum);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+  opacity: 0;
+  animation: hw-check-in .5s cubic-bezier(.3, 1.4, .5, 1) forwards;
+  animation-delay: calc(.6s + var(--i) * .35s);
+}
+
+.hw-hv2-checks li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--v11-pink);
+  color: var(--v11-plum);
+  font-size: 12px;
+  font-weight: 900;
+  content: "✓";
+}
+
+.hw-hero-todo {
+  margin: 14px 0 0;
+}
+
+/* Continuous fireworks inside the frame: above the portrait, below the story */
+.hw-fireworks {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hw-burst {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 0;
+  height: 0;
+}
+
+.hw-burst i {
+  position: absolute;
+  top: -1.5px;
+  left: 0;
+  width: 16px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--c);
+  opacity: 0;
+  transform-origin: left center;
+  animation: hw-fw-ray 3.4s cubic-bezier(.15, .7, .3, 1) var(--delay) infinite;
+}
+
+.hw-burst i:nth-child(even) {
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.hw-burst b {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--c) 60%, transparent 70%);
+  opacity: 0;
+  animation: hw-fw-flash 3.4s ease-out var(--delay) infinite;
+}
+
+@keyframes hw-fw-ray {
+  0% { opacity: 0; transform: rotate(var(--a)) translateX(0) scale(.4); }
+  8% { opacity: 1; }
+  45% { opacity: .9; transform: rotate(var(--a)) translateX(58px) scale(1); }
+  70%, 100% { opacity: 0; transform: rotate(var(--a)) translateX(72px) scale(.6); }
+}
+
+@keyframes hw-fw-flash {
+  0% { opacity: 0; transform: scale(.4); }
+  6% { opacity: 1; transform: scale(1.6); }
+  25%, 100% { opacity: 0; transform: scale(.8); }
+}
+
+@keyframes hw-check-in {
+  from { opacity: 0; transform: translateX(-10px) scale(.9); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 820px) {
+  .hw-stage .v11-hero {
+    min-height: 0;
+  }
+
+  .hw-hv2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hw-hv2 .hw-hv2-photo {
+    order: 2;
+    clip-path: inset(3% 0 3% 0);
+  }
+
+  .hw-hv2 .v11-story {
+    padding: 46px 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* The header button sits right below, so the bar's link is a repeat on phones */
+  .hw-fomo-link {
+    display: none;
+  }
+
+  .hw-burst {
+    top: var(--my);
+    left: var(--mx);
+    scale: .75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-fireworks {
+    display: none;
+  }
+
+  .hw-hv2-checks li {
+    opacity: 1;
+    animation: none;
+  }
+}
+
