@@ -1,0 +1,257 @@
+/* V2 "your five days": hand-drawn day icons (DaysIcons.tsx) in a full-width carousel (DaysCarousel.tsx) */
+
+/* Hand-drawn day icons */
+.pv-dicon {
+  display: grid;
+  width: 88px;
+  height: 88px;
+  flex: none;
+  place-items: center;
+  border-radius: 22px;
+  background: rgb(217 162 174 / 12%);
+}
+
+.pv-dicon.is-large {
+  width: 150px;
+  height: 150px;
+  border-radius: 34px;
+}
+
+.pv-dicon-sketch {
+  display: block;
+  width: 78%;
+  filter: url(#pv-sketch);
+}
+
+.pv-dicon-sketch svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke: var(--pv-rose);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  overflow: visible;
+}
+
+.pv-dicon-wave {
+  animation: pv-dicon-wave 1.8s ease-in-out infinite;
+}
+
+.pv-dicon-wave.is-2 {
+  animation-delay: .3s;
+}
+
+@keyframes pv-dicon-wave {
+  0%, 100% { opacity: .25; }
+  50% { opacity: 1; }
+}
+
+.pv-dicon-ripple {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pv-dicon-ripple 2.6s ease-out infinite;
+}
+
+.pv-dicon-ripple.is-2 {
+  animation-delay: 1.3s;
+}
+
+@keyframes pv-dicon-ripple {
+  from { opacity: .8; transform: scale(.55); }
+  to { opacity: 0; transform: scale(1.1); }
+}
+
+.pv-dicon-glow {
+  animation: pv-dicon-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes pv-dicon-glow {
+  0%, 100% { stroke: var(--pv-rose); }
+  50% { stroke: #f3cdd4; }
+}
+
+/* Carousel. The track spans the full screen width; its padding lines the first and last cards up
+   with the content edge (.pv-inner is min(1080px, 100% - 40px)). */
+@property --pv-fade-l {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --pv-fade-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+.pv-dcar {
+  margin-top: 64px;
+}
+
+.pv-dcar-track {
+  --pv-gutter: max(20px, calc(50vw - 540px));
+  --pv-fade: min(calc(var(--pv-gutter) + 180px), 26vw);
+  --pv-fade-l: var(--pv-fade);
+  --pv-fade-r: var(--pv-fade);
+  display: flex;
+  gap: 20px;
+  margin: 0 calc(50% - 50vw);
+  padding: 4px var(--pv-gutter) 24px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-padding-inline: var(--pv-gutter);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Cards fade in and out at the screen edges */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--pv-fade-l), #000 calc(100% - var(--pv-fade-r)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--pv-fade-l), #000 calc(100% - var(--pv-fade-r)), transparent);
+  transition: --pv-fade-l .5s ease, --pv-fade-r .5s ease;
+}
+
+/* No fade on a side with nothing more to scroll to */
+.pv-dcar-track.is-start {
+  --pv-fade-l: 0px;
+}
+
+.pv-dcar-track.is-end {
+  --pv-fade-r: 0px;
+}
+
+/* Mouse drag and eased glides (DaysCarousel.tsx). Snapping is off while the row moves on its own. */
+@media (hover: hover) and (pointer: fine) {
+  .pv-dcar-track {
+    cursor: grab;
+  }
+}
+
+.pv-dcar-track[data-free] {
+  scroll-snap-type: none;
+}
+
+.pv-dcar-track[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.pv-dcar-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pv-dcar-track li {
+  display: flex;
+  flex: 0 0 min(380px, 78vw);
+  flex-direction: column;
+  min-height: 520px;
+  padding: 36px 32px;
+  scroll-snap-align: start;
+}
+
+/* On wide screens the row can't scroll far enough to put the last cards at the left edge; this snap
+   point lets it reach the end instead of snapping back */
+.pv-dcar-track li:last-child {
+  scroll-snap-align: end;
+}
+
+.pv-dcar-day {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0 10px;
+  color: var(--pv-soft);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.pv-dcar-day span:first-child {
+  color: var(--pv-rose);
+}
+
+.pv .pv-dcar-track h3 {
+  margin: 0 0 12px;
+  font-size: 34px;
+}
+
+.pv-dcar-track li > p:last-child {
+  margin: 0;
+  color: var(--pv-mute);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.pv-dcar-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 520px;
+  margin: 16px auto 0;
+}
+
+.pv-dcar-controls button {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgb(217 162 174 / 45%);
+  border-radius: 50%;
+  background: var(--pv-glass);
+  color: var(--pv-ink);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background .3s ease, opacity .3s ease;
+}
+
+.pv-dcar-controls button:hover:not(:disabled) {
+  background: rgb(217 162 174 / 22%);
+}
+
+.pv-dcar-controls button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.pv-dcar-bar {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+}
+
+.pv-dcar-bar span {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 12%);
+  transition: background .4s ease, box-shadow .4s ease;
+}
+
+.pv-dcar-bar span.is-on {
+  background: var(--pv-gold);
+  box-shadow: 0 0 10px rgb(233 170 185 / 55%);
+}
+
+@media (max-width: 600px) {
+  .pv-dcar-track li {
+    min-height: 460px;
+    padding: 30px 24px;
+  }
+
+  .pv-dcar-track li > p:last-child {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-dicon-wave,
+  .pv-dicon-ripple,
+  .pv-dicon-glow {
+    animation: none;
+  }
+}
+
+
+
+
+

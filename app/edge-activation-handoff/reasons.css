@@ -1,0 +1,115 @@
+/* Section 9: torn collage (design round 11) */
+.hb-rv1-under {
+  position: relative;
+  display: inline-block;
+}
+
+.hb-rv2 {
+  overflow: hidden;
+  padding: 104px 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgb(203 176 237 / 20%), transparent 40%),
+    var(--v11-cream);
+}
+
+.hb-rv2-head {
+  max-width: 760px;
+}
+
+.hb-rv2-head h2 em,
+.hb-rv2-head .hb-rv1-under {
+  color: var(--hb-accent);
+}
+
+.hb-rv2-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 38px 34px;
+  margin-top: 64px;
+}
+
+.hb-rv2-scrap .hb-torn-content {
+  padding: 40px 34px 36px;
+}
+
+.hb-rv2-scrap:nth-child(even) {
+  margin-top: 28px;
+}
+
+
+.hb-rv2-num {
+  display: block;
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: 34px;
+  line-height: 1;
+  opacity: .55;
+}
+
+.hb-rv2-scrap h3 {
+  margin: 10px 0 10px;
+  color: var(--v11-plum);
+  font-family: var(--hb-serif);
+  font-size: clamp(24px, 2.4vw, 30px);
+  letter-spacing: -.02em;
+  line-height: 1.08;
+}
+
+.hb-rv2-scrap p {
+  margin: 0;
+  color: rgb(55 32 68 / 86%);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.hb-rv2-limit {
+  width: calc(100% + 120px);
+  margin: 88px 0 0 -60px;
+}
+
+.hb-rv2-limit .hb-torn-content {
+  padding: 46px 0 44px;
+}
+
+.hb-rv2-limit p {
+  max-width: 780px;
+  margin: 0 auto;
+  color: var(--v11-cream);
+  font-family: var(--hb-serif);
+  font-size: clamp(22px, 2.4vw, 29px);
+  font-style: italic;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.hb-rv2-limit .hb-torn-texture {
+  mix-blend-mode: soft-light;
+  opacity: .5;
+}
+
+.hb-rv2 .hb-cta {
+  margin-top: 56px;
+}
+
+@media (max-width: 860px) {
+  .hb-rv2-board {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-rv2-scrap:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .hb-rv2-limit {
+    width: calc(100% + 32px);
+    margin: 64px 0 0 -16px;
+  }
+
+  .hb-rv2-limit .hb-torn-content {
+    padding: 40px 28px 38px;
+  }
+
+  .hb-rv2-limit p {
+    font-size: 20px;
+  }
+}

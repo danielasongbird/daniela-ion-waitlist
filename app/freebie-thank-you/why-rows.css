@@ -1,0 +1,165 @@
+/* V2 "why now" rows: the first sentence as a serif lead, the rest as short paragraphs, at the large
+   "one idea per screen" size, on soft pink cards. StackRows pins them mid-screen and stacks them as
+   you scroll (.is-pinned); on phones, short screens and reduced motion they stay in normal flow. */
+
+.pv-why-stack {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.pv-why-deck {
+  position: relative;
+  margin-top: 72px;
+}
+
+.pv-why-stage {
+  position: relative;
+}
+
+.pv-why-stack.is-pinned .pv-why-stage {
+  position: sticky;
+}
+
+.pv-why-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each row just holds its card (overrides the base row grid in portal.css) */
+.pv-why-cards > .pv-why-row {
+  display: block;
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+
+.pv-why-cards > .pv-why-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Pinned: every card sits in the same spot; later cards land on top of earlier ones */
+.is-pinned .pv-why-cards > .pv-why-row {
+  grid-area: 1 / 1;
+  align-self: start;
+  margin: 0;
+}
+
+.pv-why-card {
+  display: grid;
+  min-height: min(70vh, 620px);
+  grid-template-columns: 340px minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  padding: clamp(40px, 5vw, 72px);
+  border: 1.5px solid rgb(226 140 168 / 65%);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 12% 0%, rgb(255 255 255 / 70%), transparent 45%),
+    linear-gradient(160deg, #fff2f5 0%, #fde6ec 100%);
+  box-shadow: 0 30px 60px -32px rgb(46 26 44 / 38%), inset 0 1px 0 rgb(255 255 255 / 80%);
+  transform-origin: 50% 0;
+}
+
+.is-pinned .pv-why-card {
+  will-change: transform;
+}
+
+.pv-why-row:nth-child(even) .pv-why-card {
+  grid-template-columns: minmax(0, 1fr) 340px;
+}
+
+/* Text: a big serif lead and short paragraphs, no drop cap */
+.pv-why-text {
+  max-width: 34rem;
+}
+
+.pv .pv-why-text p {
+  margin: 0 0 20px;
+  color: rgb(46 26 44 / 76%);
+  font-size: clamp(19px, 1.6vw, 21px);
+  line-height: 1.75;
+}
+
+.pv .pv-why-text p:last-child {
+  margin-bottom: 0;
+}
+
+.pv-why-text p::first-letter {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.pv .pv-why-text .pv-why-lead {
+  margin-bottom: 28px;
+  color: var(--pv-why-ink);
+  font-family: var(--pv-serif);
+  font-size: clamp(32px, 3.6vw, 46px);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* The accent phrase in each lead: deep rose italic, like "your Edge" in the heading */
+.pv-why-accent {
+  color: var(--pv-why-rose);
+  font-style: italic;
+}
+
+/* Bigger tape on the larger sticky notes */
+.pv-why-card .pv-why-art::before {
+  top: -16px;
+  width: 120px;
+  height: 34px;
+}
+
+@media (max-width: 860px) {
+  .pv-why-card,
+  .pv-why-row:nth-child(even) .pv-why-card {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .pv-why-row:nth-child(even) .pv-why-art {
+    order: 0;
+  }
+
+  .pv-why-card .pv-why-art {
+    width: min(280px, 80%);
+    margin: 0 auto;
+  }
+
+  .pv-why-text {
+    max-width: none;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .pv-why-deck {
+    margin-top: 40px;
+  }
+
+  .pv-why-card {
+    padding: 32px 22px;
+    border-radius: 24px;
+  }
+
+  .pv .pv-why-text p {
+    font-size: 17px;
+  }
+
+  .pv .pv-why-text .pv-why-lead {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+}
+
+
+
+

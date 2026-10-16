@@ -1,0 +1,406 @@
+/* V2 bonuses: light theme, hand-drawn bonus icons (BonusIcons.tsx), the editorial index
+   (BonusClient.tsx) and the sound-wave background round (BonusWaves.tsx, versions 1–3). */
+
+.pv-bonus {
+  --pv-bn-ink: #2e1a2c;
+  --pv-bn-rose: #9c5568;
+  --pv-bn-line: rgb(46 26 44 / 14%);
+
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(255 255 255 / 70%), transparent 55%),
+    linear-gradient(180deg, #fbf4f1 0%, #f5e4e4 100%);
+  color: var(--pv-bn-ink);
+}
+
+.pv-bonus > .pv-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.pv .pv-bonus .pv-label {
+  color: var(--pv-bn-rose);
+}
+
+.pv .pv-bonus h2 {
+  color: var(--pv-bn-ink);
+}
+
+.pv .pv-bonus h2 em {
+  color: var(--pv-bn-rose);
+}
+
+/* Hand-drawn bonus icons */
+.pv-bicon {
+  display: grid;
+  width: 84px;
+  height: 84px;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgb(226 140 168 / 45%);
+  border-radius: 22px;
+  background: linear-gradient(160deg, #fffaf8, #fbeeed);
+}
+
+.pv-bicon.is-large {
+  width: 128px;
+  height: 128px;
+  border-radius: 30px;
+}
+
+.pv-bicon-sketch {
+  display: block;
+  width: 78%;
+  filter: url(#pv-sketch);
+}
+
+.pv-bicon-sketch svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke: var(--pv-bn-rose);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.6;
+  overflow: visible;
+}
+
+/* Equanimity: the wave under the headphones breathes flat and back */
+.pv-bicon-calm {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pv-bicon-calm 3.2s ease-in-out infinite;
+}
+
+@keyframes pv-bicon-calm {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(.15); }
+}
+
+/* New Paradigm: rays of light pulse around her */
+.pv-bicon-ray {
+  animation: pv-bicon-ray 2.4s ease-in-out infinite;
+}
+
+@keyframes pv-bicon-ray {
+  0%, 100% { opacity: .25; }
+  50% { opacity: 1; }
+}
+
+/* Soul Audit: the tick draws itself, holds, then fades to draw again */
+.pv-bicon-tick {
+  stroke-dasharray: 1;
+  animation: pv-bicon-tick 3s ease-in-out infinite;
+}
+
+@keyframes pv-bicon-tick {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  35%, 80% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* Live Q&A: the live dot pulses and broadcasts */
+.pv-bicon-live {
+  fill: var(--pv-bn-rose);
+  animation: pv-bicon-ray 1.4s ease-in-out infinite;
+}
+
+.pv-bicon-arc {
+  animation: pv-bicon-ray 1.4s ease-in-out infinite;
+}
+
+.pv-bicon-arc.is-2 {
+  animation-delay: .35s;
+}
+
+/* The surprise: the gift's lid keeps lifting */
+.pv-bicon-lid {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: pv-bicon-lid 3s ease-in-out infinite;
+}
+
+@keyframes pv-bicon-lid {
+  0%, 55%, 100% { transform: none; }
+  65% { transform: translateY(-8px) rotate(-8deg); }
+  75% { transform: translateY(-3px) rotate(-3deg); }
+  85% { transform: none; }
+}
+
+/* Editorial index: big numbered rows that open onto the description and icon */
+.pv-bz2 {
+  max-width: 920px;
+  margin: 56px auto 0;
+  padding: 0;
+  border-bottom: 1px solid var(--pv-bn-line);
+  list-style: none;
+}
+
+.pv-bz2 > li {
+  border-top: 1px solid var(--pv-bn-line);
+  transition: background .5s ease;
+}
+
+.pv-bz2 > li[data-open] {
+  background: linear-gradient(90deg, transparent, rgb(226 140 168 / 14%) 30%, rgb(226 140 168 / 14%) 70%, transparent);
+}
+
+.pv .pv-bz2 h3 {
+  margin: 0;
+  font-size: inherit;
+}
+
+.pv-bz2 button {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 90px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 8px;
+  border: 0;
+  background: none;
+  color: var(--pv-bn-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pv-bz2-num {
+  background: linear-gradient(135deg, #d69aaa, #9c5568);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: var(--pv-serif);
+  font-size: 44px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.pv-bz2-title {
+  font-family: var(--pv-serif);
+  font-size: clamp(26px, 3.4vw, 40px);
+  line-height: 1.15;
+  transition: color .4s ease, transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.pv-bz2 button:hover .pv-bz2-title {
+  color: var(--pv-bn-rose);
+  transform: translateX(8px);
+}
+
+/* Plus that turns into a minus */
+.pv-bz2-toggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(156 85 104 / 45%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 50%);
+}
+
+.pv-bz2-toggle::before,
+.pv-bz2-toggle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 1.5px;
+  margin: -.75px 0 0 -7px;
+  background: var(--pv-bn-rose);
+  content: "";
+  transition: transform .4s ease;
+}
+
+.pv-bz2-toggle::after {
+  transform: rotate(90deg);
+}
+
+[data-open] .pv-bz2-toggle::after {
+  transform: rotate(0deg);
+}
+
+.pv-bz2-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .6s cubic-bezier(.22, 1, .36, 1);
+}
+
+[data-open] .pv-bz2-panel {
+  grid-template-rows: 1fr;
+}
+
+.pv-bz2-panel-inner {
+  display: flex;
+  min-height: 0;
+  align-items: center;
+  gap: 40px;
+  padding: 0 8px 0 118px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .4s ease, padding .6s cubic-bezier(.22, 1, .36, 1);
+}
+
+[data-open] .pv-bz2-panel-inner {
+  padding-bottom: 34px;
+  opacity: 1;
+  transition-delay: .12s;
+}
+
+.pv-bz2-panel-inner p {
+  max-width: 34rem;
+  margin: 0;
+  color: rgb(46 26 44 / 75%);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.pv-bz2-panel-inner .pv-bicon {
+  margin-left: auto;
+}
+
+.pv-bz2-surprise {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 8px;
+}
+
+.pv-bz2-surprise p {
+  margin: 0;
+  color: rgb(46 26 44 / 72%);
+  font-family: var(--pv-serif);
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+/* Background round: sound waves in circles fading in and out around the section */
+.pv-bw {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Waves fade out at the section edges instead of being cut off */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 6%, #000 86%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 6%, #000 86%, transparent);
+}
+
+.pv-bw-spot {
+  position: absolute;
+  width: var(--size);
+  aspect-ratio: 1;
+  opacity: 0;
+  translate: -50% -50%;
+  animation: pv-bw-spot 9s ease-in-out infinite;
+  animation-delay: var(--bw-d);
+}
+
+@keyframes pv-bw-spot {
+  0% { opacity: 0; scale: .85; }
+  25%, 60% { opacity: 1; scale: 1; }
+  85%, 100% { opacity: 0; scale: 1.08; }
+}
+
+.pv-bw svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #d08a9d;
+  stroke-linecap: round;
+  overflow: visible;
+  filter: url(#pv-sketch);
+}
+
+/* Each ring turns slowly, its own way */
+.pv-bw-wave {
+  stroke-width: 1.6;
+  transform-origin: 100px 100px;
+  animation: pv-bw-turn 26s linear infinite;
+}
+
+.pv-bw-wave.is-2 {
+  opacity: .7;
+  animation-duration: 34s;
+  animation-direction: reverse;
+}
+
+.pv-bw-wave.is-3 {
+  opacity: .45;
+  animation-duration: 44s;
+}
+
+@keyframes pv-bw-turn {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 700px) {
+  .pv-bw-spot {
+    width: calc(var(--size) * .6);
+  }
+
+  .pv-bz2 button {
+    grid-template-columns: 52px minmax(0, 1fr) 36px;
+    gap: 14px;
+    padding: 24px 0;
+  }
+
+  .pv-bz2-num {
+    font-size: 32px;
+  }
+
+  .pv-bz2-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pv-bz2-panel-inner {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 0 0 0 66px;
+  }
+
+  .pv-bz2-panel-inner .pv-bicon {
+    width: 96px;
+    height: 96px;
+    margin-left: 0;
+  }
+
+  .pv-bz2-panel-inner p {
+    font-size: 16px;
+  }
+
+  .pv-bz2-surprise {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 14px;
+    padding: 24px 0;
+  }
+
+  .pv-bz2-surprise .pv-bicon {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-bicon-calm,
+  .pv-bicon-ray,
+  .pv-bicon-tick,
+  .pv-bicon-live,
+  .pv-bicon-arc,
+  .pv-bicon-lid,
+  .pv-bw-wave {
+    animation: none;
+  }
+
+  .pv-bw-spot {
+    opacity: .6;
+    animation: none;
+  }
+}
+
+

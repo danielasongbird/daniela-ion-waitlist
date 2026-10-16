@@ -180,34 +180,37 @@ export function VersionTwo() {
 
 export function VersionThree() {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-  const [submissionState, setSubmissionState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const isSubmitting = submissionState === 'submitting';
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formMessage, setFormMessage] = useState('');
 
-  function openJoinModal() {
-    setSubmissionState('idle');
-    setIsJoinModalOpen(true);
-  }
-
-  async function handleVersionThreeSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleWaitlistSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    if (isSubmitting || !form.reportValidity()) return;
+    if (!form.reportValidity()) return;
 
-    const formData = new FormData(form);
-    setSubmissionState('submitting');
+    const fields = new FormData(form);
+    const attribution = getWaitlistAttribution();
+    setFormState('submitting');
+    setFormMessage('');
+    trackWaitlistEvent('waitlist_submit_attempt', attribution);
+
     try {
       await submitLead({
-        company: String(formData.get('company') ?? ''),
-        consent: formData.get('consent') === 'on',
-        email: String(formData.get('email') ?? ''),
-        firstName: String(formData.get('name') ?? ''),
+        company: String(fields.get('company') ?? ''),
+        consent: fields.get('consent') === 'on',
+        email: String(fields.get('email') ?? ''),
+        firstName: String(fields.get('name') ?? ''),
         flow: 'waitlist',
         waitlistVersion: 'v3',
       });
       form.reset();
-      setSubmissionState('success');
-    } catch {
-      setSubmissionState('error');
+      setFormState('success');
+      setFormMessage('You’re on the private list. Watch your inbox for what comes next.');
+      trackWaitlistEvent('waitlist_submit_success', attribution);
+    } catch (error) {
+      setFormState('error');
+      setFormMessage(error instanceof Error ? error.message : 'That didn’t go through. Please try again.');
+      trackWaitlistEvent('waitlist_submit_error', { ...attribution, reason: 'request_failed' });
     }
   }
 
@@ -231,7 +234,7 @@ export function VersionThree() {
           <p className="waitlist-v1b-kicker">For women who are done performing</p>
           <h1 id="waitlist-v3-title">You don’t need more <span className="waitlist-v3-headline-join">strategy. <span className="waitlist-v3-headline-accent">You need to</span></span><span className="waitlist-v3-headline-accent"> lead with your frequency.</span></h1>
           <p className="waitlist-v3-subheadline">Soul portal is a private invitation for the creative woman. The woman ready to lead with her soul story. The woman ready to finally write her book, record her song, launch her business &amp; create her content - knowing she is more than enough and totally worth more.</p>
-          <button className="waitlist-v3-modal-trigger waitlist-v3-hero-trigger" id="join-v3" type="button" onClick={openJoinModal}>
+          <button className="waitlist-v3-modal-trigger waitlist-v3-hero-trigger" id="join-v3" type="button" onClick={() => setIsJoinModalOpen(true)}>
             <span>Enter The Portal</span>
             <BoldArrow />
           </button>
@@ -257,7 +260,7 @@ export function VersionThree() {
             <p>The answer isn’t more strategy or more hustle.</p>
             <p><strong>It’s your frequency, your vibration.</strong> It’s remembering what your soul voice actually sounds like before the noise got so loud.</p>
             <p className="waitlist-v3-build">That is why I am building something for women who are done performing and ready to be their truest expression of themselves.</p>
-            <button className="waitlist-v3-modal-trigger" type="button" onClick={openJoinModal}>
+            <button className="waitlist-v3-modal-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>
               <span>Join the Soul Portal waitlist</span>
               <BoldArrow />
             </button>
@@ -271,43 +274,22 @@ export function VersionThree() {
         }}>
           <section className="waitlist-v3-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-v3-modal-title">
             <button className="waitlist-v3-modal-close" type="button" aria-label="Close waitlist form" onClick={() => setIsJoinModalOpen(false)}>×</button>
-            {submissionState === 'success' ? (
-              <div className="waitlist-v3-success" role="status" aria-live="polite">
-                <div className="waitlist-v3-success-mark" aria-hidden="true">
-                  <span className="waitlist-v3-success-orbit waitlist-v3-success-orbit-one" />
-                  <span className="waitlist-v3-success-orbit waitlist-v3-success-orbit-two" />
-                  <svg viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="44" />
-                    <path d="M38 61.5 53.5 77 83 43.5" />
-                  </svg>
-                </div>
-                <p className="waitlist-v1b-kicker">The portal remembers you</p>
-                <h2 id="waitlist-v3-modal-title">You’re in. Your place is saved.</h2>
-                <p>Thank you for saying yes to what is already calling you. Your private invitation is now on its way to your inbox.</p>
-                <p className="waitlist-v3-success-script">This is your frequency meeting the moment.</p>
-                <button type="button" onClick={() => setIsJoinModalOpen(false)}>Return to the page <BoldArrow /></button>
-              </div>
-            ) : (
-              <>
-                <p className="waitlist-v1b-kicker">Your private invitation</p>
-                <h2 id="waitlist-v3-modal-title">Join the Soul Portal waitlist.</h2>
-                <p>Be first to receive the private reveal and early-access details before they are shared publicly.</p>
-                <form aria-busy={isSubmitting} className="waitlist-v3-modal-form" onSubmit={handleVersionThreeSubmit}>
-                  <label htmlFor="waitlist-v3-name">First name</label>
-                  <input id="waitlist-v3-name" name="name" type="text" autoComplete="given-name" placeholder="Your first name" required />
-                  <label htmlFor="waitlist-v3-email">Email address</label>
-                  <input id="waitlist-v3-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="Your best email" required />
-                  <label className="waitlist-v3-modal-consent">
-                    <input name="consent" type="checkbox" required />
-                    <span>I agree to receive Soul Portal emails. I can unsubscribe at any time.</span>
-                  </label>
-                  <input className="waitlist-v1b-honeypot" name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-                  {submissionState === 'error' && <p className="waitlist-v3-modal-error" role="alert">The portal paused for a moment. Please try again.</p>}
-                  <button disabled={isSubmitting} type="submit">{isSubmitting ? 'Saving your place…' : 'Join the Soul Portal waitlist'} <BoldArrow /></button>
-                </form>
-                <small>Private by design. No spam. Your details are never sold.</small>
-              </>
-            )}
+            <p className="waitlist-v1b-kicker">Your private invitation</p>
+            <h2 id="waitlist-v3-modal-title">Join the Soul Portal waitlist.</h2>
+            <p>Be first to receive the private reveal and early-access details before they are shared publicly.</p>
+            <form className="waitlist-v3-modal-form" onSubmit={handleWaitlistSubmit}>
+              <label htmlFor="waitlist-v3-name">First name</label>
+              <input id="waitlist-v3-name" name="name" type="text" autoComplete="given-name" placeholder="Your first name" required />
+              <label htmlFor="waitlist-v3-email">Email address</label>
+              <input id="waitlist-v3-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="Your best email" required />
+              <input className="waitlist-v1b-honeypot" name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <label className="waitlist-v3-modal-consent">
+                <input name="consent" type="checkbox" required />
+                <span>I agree to receive Soul Portal emails. I can unsubscribe at any time.</span>
+              </label>
+              <button type="submit" disabled={formState === 'submitting'}>{formState === 'submitting' ? 'Joining the Soul Portal waitlist…' : 'Join the Soul Portal waitlist'} <BoldArrow /></button>
+            </form>
+            <small role="status" aria-live="polite">{formMessage || 'Private by design. No spam. Your details are never sold.'}</small>
           </section>
         </div>
       )}
@@ -340,7 +322,7 @@ export function VersionThree() {
           </details>
           <details>
             <summary>Who is it for?</summary>
-            <p>It’s for the woman caught between creative desire and the perfectionism spiral, ready to stop overthinking, stop overriding her intuition, and step into her fullest expression. She’s ready to go back into her creative flow, trust her own intuition. Whether it’s publishing the book, recording the song, launching the business, or launching the digital products, she’s ready to do all of it. She’s ready to take on whatever’s held her back from playing small, and meet the highest soul version of herself inside the Soul Portal.</p>
+            <p>It’s for the woman caught between creative desire and the perfectionism spiral, ready to stop overthinking, stop overriding her intuition, and step into her fullest expression. She’s ready to go back into her creative flow, trust her own intuition, and explore her highest soul expression. Whether it’s publishing the book, recording the song, launching the business, or launching the digital products, she’s ready to do all of it. She’s ready to take on whatever’s held her back from playing small, and meet the highest soul version of herself inside the Soul Portal.</p>
           </details>
           <details>
             <summary>What happens after I join?</summary>
@@ -355,7 +337,7 @@ export function VersionThree() {
             <p>A public opening date has not been announced. Waitlist members will be told first when verified launch details are available.</p>
           </details>
         </div>
-        <button className="waitlist-v3-modal-trigger waitlist-v3-faq-trigger" type="button" onClick={openJoinModal}>
+        <button className="waitlist-v3-modal-trigger waitlist-v3-faq-trigger" type="button" onClick={() => setIsJoinModalOpen(true)}>
           <span>Join the Soul Portal waitlist</span>
           <BoldArrow />
         </button>

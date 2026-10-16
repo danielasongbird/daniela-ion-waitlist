@@ -1,0 +1,207 @@
+/* Hero: centred stack with video thumbnail (design round 3) */
+.hb-hv2 {
+  overflow: hidden;
+  padding: 56px 0 96px;
+  background:
+    radial-gradient(circle at 85% 70%, rgb(244 139 179 / 18%), transparent 45%),
+    linear-gradient(135deg, var(--v11-cream), var(--v11-peach));
+}
+
+.hb-hv2-eyebrow {
+  margin: 0 0 20px;
+  color: var(--hb-accent-deep);
+  font-family: var(--hb-hand);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.12;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.hb .hb-hv2 h1 {
+  max-width: 990px;
+  margin: 0 auto;
+  font-size: clamp(40px, 5.4vw, 70px);
+  line-height: .95;
+  text-align: center;
+}
+
+.hb-hv2-highlight {
+  color: var(--hb-accent);
+  font-weight: inherit;
+}
+
+.hb-hv2 .hb-inner {
+  text-align: center;
+}
+
+.hb-hv2 .hb-tag {
+  margin-top: 26px;
+}
+
+.hb-hv2 .hb-inner > .hb-tag:first-child {
+  margin-top: 0;
+}
+
+.hb-hv2-video {
+  position: relative;
+  width: min(100%, 820px);
+  margin: 48px auto 0;
+}
+
+.hb-hv2-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgb(55 32 68 / 22%);
+  background:
+    linear-gradient(180deg, rgb(55 32 68 / 0%) 55%, rgb(55 32 68 / 70%)),
+    url('/images/daniela-closeup-portrait.webp') center 30% / cover no-repeat;
+  box-shadow: 14px 14px 0 rgb(203 176 237 / 45%);
+  cursor: pointer;
+}
+
+.hb-hv2-play {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: var(--v11-pink);
+  box-shadow: 0 16px 40px rgb(55 32 68 / 35%);
+  transition: transform .3s ease;
+}
+
+.hb-hv2-play::before {
+  position: absolute;
+  inset: -12px;
+  border: 1px solid rgb(255 249 243 / 70%);
+  border-radius: 50%;
+  animation: hb-hv2-pulse 2.4s ease-out infinite;
+  content: '';
+}
+
+.hb-hv2-play::after {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid var(--v11-plum);
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.hb-hv2-thumb:hover .hb-hv2-play {
+  transform: scale(1.06);
+}
+
+.hb-hv2-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  color: var(--v11-cream);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.hb-hv2-caption strong {
+  margin-right: 10px;
+  font-family: var(--hb-hand);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.hb-hv2-video-note {
+  margin: 30px 0 0;
+}
+
+.hb-hv2-badge {
+  position: absolute;
+  top: -48px;
+  right: -44px;
+  width: 128px;
+  height: 128px;
+  animation: hb-spin 22s linear infinite;
+}
+
+@keyframes hb-hv2-pulse {
+  from { opacity: 1; transform: scale(.9); }
+  to { opacity: 0; transform: scale(1.35); }
+}
+
+.hb-hv2-badge circle {
+  fill: var(--v11-plum);
+}
+
+.hb-hv2-badge text {
+  fill: var(--v11-cream);
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+
+.hb-hv2-badge .hb-hv2-star {
+  fill: var(--v11-pink);
+  font-size: 34px;
+  letter-spacing: 0;
+}
+
+.hb-hv2-accent {
+  max-width: 760px;
+  margin: 26px auto 0;
+  color: var(--hb-accent);
+  font-family: var(--hb-serif);
+  font-size: clamp(24px, 2.5vw, 31px);
+  font-style: italic;
+  line-height: 1.22;
+}
+
+.hb-hv2-deck {
+  max-width: 640px;
+  margin: 22px auto 0;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.hb-hv2 .hb-cta-center > p {
+  text-align: center;
+}
+
+@keyframes hb-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 860px) {
+  .hb-hv2-badge {
+    top: -40px;
+    right: -6px;
+    width: 92px;
+    height: 92px;
+  }
+
+  .hb-hv2-play {
+    width: 68px;
+    height: 68px;
+  }
+
+  .hb-hv2-caption strong {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-hv2-badge,
+  .hb-hv2-play::before {
+    animation: none;
+  }
+}

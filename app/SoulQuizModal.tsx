@@ -2,6 +2,7 @@
 
 import type { FormEvent, MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { portalHref } from './edge-activation-welcome/content';
 import { submitLead } from './lib/submitLead';
 
 type Signal = 'quiet' | 'clear' | 'ready';
@@ -51,17 +52,17 @@ const results: Record<Signal, { title: string; copy: string; note: string }> = {
   quiet: {
     title: 'Your signal needs quiet.',
     copy: "Your knowing may not be missing. It may simply be crowded by smart advice, other people's expectations, and the pressure to decide perfectly.",
-    note: 'The audio gives you seven uninterrupted minutes before the next opinion enters the room.',
+    note: 'The activation gives you eleven uninterrupted minutes before the next opinion enters the room.',
   },
   clear: {
     title: 'Your signal wants clarity.',
     copy: 'You may already sense what is true for you, but the answer gets blurred when desire, fear, facts, and shoulds all speak at once.',
-    note: 'The audio helps you notice what is yours without pretending every feeling is an instruction.',
+    note: 'The activation helps you notice what is yours without pretending every feeling is an instruction.',
   },
   ready: {
     title: 'Your signal is ready to move.',
     copy: 'You may not need a life-changing answer. You may need one honest, proportionate move that lets you learn without abandoning yourself.',
-    note: 'The audio helps you hear that next small move and meet it without impossible certainty.',
+    note: 'The activation helps you hear that next small move and meet it without impossible certainty.',
   },
 };
 
@@ -75,7 +76,9 @@ export default function SoulQuizModal() {
   const [answers, setAnswers] = useState<Array<Signal | null>>([null, null, null]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [company, setCompany] = useState('');
+  const [submitState, setSubmitState] = useState<'idle' | 'submitting' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const resultSignal = useMemo<Signal>(() => {
     const counts: Record<Signal, number> = { quiet: 0, clear: 0, ready: 0 };
@@ -99,7 +102,9 @@ export default function SoulQuizModal() {
       setAnswers([null, null, null]);
       setName('');
       setEmail('');
-      setIsSubmitting(false);
+      setCompany('');
+      setSubmitState('idle');
+      setSubmitMessage('');
       dialog.showModal();
     };
 
@@ -141,18 +146,35 @@ export default function SoulQuizModal() {
     setScreen((current) => Math.min(current + 1, 4));
   };
   const moveBack = () => setScreen((current) => Math.max(current - 1, 0));
+  const finishJourney = () => {
+    if (portalHref.startsWith('#')) {
+      closeDialog();
+      return;
+    }
+    window.location.assign(portalHref);
+  };
 
   const submitSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isSubmitting) return;
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
 
-    const company = String(new FormData(event.currentTarget).get('company') ?? '');
-    setIsSubmitting(true);
+    setSubmitState('submitting');
+    setSubmitMessage('');
+
     try {
-      await submitLead({ company, consent: true, email, firstName: name, flow: 'audio' });
+      await submitLead({
+        company,
+        consent: true,
+        email,
+        firstName: name,
+        flow: 'audio',
+      });
+      setSubmitState('idle');
       setScreen(1);
-    } catch {
-      setIsSubmitting(false);
+    } catch (error) {
+      setSubmitState('error');
+      setSubmitMessage(error instanceof Error ? error.message : 'We could not save your details. Please try again.');
     }
   };
 
@@ -187,14 +209,15 @@ export default function SoulQuizModal() {
                 <div><span>Step 1 of 2</span><span>Journey begun</span></div>
                 <div className="soul-onboarding-track" aria-hidden="true"><span /></div>
               </div>
-              <p className="soul-eyebrow">Free private audio / 7 minutes</p>
+              <p className="soul-eyebrow">Free guided audio / 11 minutes</p>
               <h2 id="soul-quiz-title" ref={titleRef} tabIndex={-1}>
-                Where should we send <em>your reset?</em>
+                Where should we send <em>your activation?</em>
               </h2>
               <p className="soul-lede">
-                A quiet practice to turn down everyone else&apos;s voice and hear what has been yours all along.
+                Press play and let your work come through from the frequency of your soul.
               </p>
-              <form aria-busy={isSubmitting} className="soul-signin soul-signin-first" onSubmit={submitSignIn}>
+              <form className="soul-signin soul-signin-first" onSubmit={submitSignIn}>
+                <input aria-hidden="true" autoComplete="off" className="lead-honeypot" name="company" onChange={(event) => setCompany(event.target.value)} tabIndex={-1} type="text" value={company} />
                 <div className="soul-fields">
                   <label>
                     <span>First name</span>
@@ -205,9 +228,9 @@ export default function SoulQuizModal() {
                     <input autoComplete="email" onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" required type="email" value={email} />
                   </label>
                 </div>
-                <input aria-hidden="true" autoComplete="off" className="soul-honeypot" name="company" tabIndex={-1} type="text" />
-                <button className="soul-primary soul-optin-button" disabled={isSubmitting} type="submit">Send my private audio <span aria-hidden="true">→</span></button>
+                <button className="soul-primary soul-optin-button" disabled={submitState === 'submitting'} type="submit">{submitState === 'submitting' ? 'Sending My Free Activation…' : 'Send Me My Free Activation'} <span aria-hidden="true">→</span></button>
                 <p className="soul-next-cue"><strong>Next:</strong> a 60-second reflection to reveal what your inner signal needs now.</p>
+                {submitState === 'error' && <small className="soul-trust-line" role="alert">{submitMessage}</small>}
                 <small className="soul-trust-line">Private by design · No spam · Unsubscribe anytime</small>
               </form>
             </section>
@@ -254,8 +277,8 @@ export default function SoulQuizModal() {
                 <h2 id="soul-quiz-title" ref={titleRef} tabIndex={-1}>{result.title}</h2>
                 <p className="soul-result-copy">{result.copy}</p>
                 <blockquote>{result.note}</blockquote>
-                <p className="soul-profile-note">Your answers help Daniela make the guidance you receive more relevant to where you are now. Your audio is headed to {email}.</p>
-                <button className="soul-primary" onClick={closeDialog} type="button">Finish and Access The Soul Portal</button>
+                <p className="soul-profile-note">Your activation is on its way to your inbox. Keep an eye out for my next email, because something bigger is coming and you&apos;ll want to be first in line.</p>
+                <button className="soul-primary" onClick={finishJourney} type="button">Finish and Access The Soul Portal</button>
               </div>
               <div className="soul-result-celebration">
                 <span>You did it</span>

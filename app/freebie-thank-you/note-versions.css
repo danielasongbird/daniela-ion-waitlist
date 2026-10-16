@@ -1,0 +1,325 @@
+/* V2 "a note from Daniela" design round (NoteVersions.tsx), light theme: cream and blush, plum ink,
+   deep rose accents, and the spiral pattern redrawn in plum for light backgrounds.
+   Delete the losing versions' rules once one is picked. */
+
+.pv-note {
+  --pv-nt-ink: #2e1a2c;
+  --pv-nt-rose: #9c5568;
+  --pv-nt-spiral: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 32m-2 0a2 2 0 1 1 4 0a5 5 0 1 1-10 0a8 8 0 1 1 16 0a11 11 0 1 1-22 0' fill='none' stroke='%239c5568' stroke-opacity='.07' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  color: var(--pv-nt-ink);
+}
+
+.pv .pv-note .pv-label {
+  color: var(--pv-nt-rose);
+}
+
+/* Shared letter text (low specificity, so the label, lead and closing rules win) */
+:where(.pv-note article) p {
+  margin: 0 0 18px;
+  color: rgb(46 26 44 / 78%);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.pv-note .pv-nt-lead {
+  margin-bottom: 22px;
+  color: var(--pv-nt-ink);
+  font-family: var(--pv-serif);
+  font-size: clamp(28px, 3.2vw, 38px);
+  line-height: 1.22;
+  text-wrap: balance;
+}
+
+.pv-note .pv-nt-closing {
+  color: var(--pv-nt-ink);
+  font-family: var(--pv-serif);
+  font-size: 21px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Sign-off with a swash that draws itself in once the letter is revealed */
+.pv-nt-sign {
+  display: inline-grid;
+  margin-top: 18px;
+  color: var(--pv-nt-ink);
+  font-family: var(--pv-serif);
+}
+
+.pv-nt-sign em {
+  color: var(--pv-nt-rose);
+  font-size: 22px;
+}
+
+.pv-nt-sign span {
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+.pv-nt-swash {
+  width: 190px;
+  margin-top: 2px;
+  fill: none;
+  stroke: var(--pv-nt-rose);
+  stroke-linecap: round;
+  stroke-width: 2.4;
+  filter: url(#pv-sketch);
+}
+
+.pv-nt-swash path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s cubic-bezier(.65, 0, .35, 1) .6s;
+}
+
+.pv-rv.in .pv-nt-swash path {
+  stroke-dashoffset: 0;
+}
+
+/* Version 1: letter on stationery */
+.pv-nt1 {
+  padding-top: 170px;
+  background:
+    var(--pv-nt-spiral),
+    radial-gradient(ellipse at 50% 30%, #fff 0%, transparent 60%),
+    linear-gradient(180deg, #f6e7e5, #fbf4f1);
+}
+
+.pv-nt1-paper {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 110px clamp(26px, 6vw, 80px) clamp(44px, 6vw, 72px);
+  border: 1px solid rgb(226 140 168 / 35%);
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, #fffdfb, #fff8f5);
+  box-shadow:
+    0 1px 2px rgb(46 26 44 / 6%),
+    0 40px 90px -40px rgb(120 60 80 / 40%);
+  text-align: center;
+}
+
+/* The round portrait sits on the letter's top edge like a seal */
+.pv-nt1-seal {
+  position: absolute;
+  top: -84px;
+  left: 50%;
+  width: 168px;
+  aspect-ratio: 1;
+  border: 6px solid #fffdfb;
+  border-radius: 50%;
+  background: url('/images/daniela-closeup-portrait.webp') 48% 22% / 190% auto no-repeat;
+  box-shadow: 0 0 0 1px rgb(226 140 168 / 60%), 0 20px 40px -20px rgb(120 60 80 / 50%);
+  translate: -50% 0;
+}
+
+.pv-nt1-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--pv-nt-rose);
+}
+
+.pv-note .pv-nt1-mark {
+  margin: 0 0 26px;
+  color: var(--pv-nt-rose);
+}
+
+.pv-nt1-mark span {
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d9a2ae);
+}
+
+.pv-nt1-mark span:last-child {
+  background: linear-gradient(90deg, #d9a2ae, transparent);
+}
+
+.pv-nt1-paper > p:not(.pv-label, .pv-nt-lead, .pv-nt1-mark, .pv-nt-closing) {
+  text-align: left;
+}
+
+.pv-nt1-paper .pv-nt-sign {
+  justify-items: center;
+}
+
+/* Version 2: sticky portrait */
+.pv-nt2 {
+  background: var(--pv-nt-spiral), #fbf4f1;
+}
+
+.pv-nt2-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: clamp(48px, 7vw, 100px);
+}
+
+.pv-nt2-side {
+  position: sticky;
+  top: 12vh;
+}
+
+.pv-nt2-photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: 28px;
+  background: url('/images/daniela-closeup-portrait.webp') 50% 20% / cover no-repeat;
+  box-shadow: 0 40px 90px -40px rgb(120 60 80 / 45%);
+}
+
+/* A rose hairline frame, offset from the photo */
+.pv-nt2-photo::before {
+  position: absolute;
+  inset: -16px 16px 16px -16px;
+  z-index: -1;
+  border: 1px solid rgb(156 85 104 / 45%);
+  border-radius: 34px;
+  content: "";
+}
+
+.pv-nt2-letter {
+  padding-top: 10px;
+}
+
+.pv-note .pv-nt2-letter .pv-nt-lead {
+  position: relative;
+}
+
+.pv-nt2-quote {
+  position: absolute;
+  top: -.62em;
+  left: -.18em;
+  z-index: -1;
+  color: rgb(226 140 168 / 35%);
+  font-size: 4.4em;
+  line-height: 1;
+}
+
+.pv-note .pv-nt2-letter .pv-nt-closing {
+  margin: 30px 0;
+  padding-left: 22px;
+  border-left: 2px solid rgb(226 140 168 / 70%);
+}
+
+/* Version 3: statement */
+.pv-nt3 {
+  background:
+    var(--pv-nt-spiral),
+    radial-gradient(ellipse at 50% 0%, #fff, transparent 60%),
+    #fdf6f3;
+}
+
+.pv-nt3-statement {
+  max-width: 980px;
+  margin: 0 auto;
+  font-family: var(--pv-serif);
+  font-size: clamp(38px, 5.6vw, 72px);
+  line-height: 1.1;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.pv-nt3-statement span {
+  color: rgb(46 26 44 / 16%);
+  transition: color .35s ease;
+}
+
+.pv-nt3-statement span.is-lit {
+  color: var(--pv-nt-ink);
+}
+
+.pv-nt3-grid {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(40px, 6vw, 88px);
+  max-width: 940px;
+  margin: 80px auto 0;
+  padding-top: 56px;
+  border-top: 1px solid rgb(46 26 44 / 12%);
+}
+
+.pv-nt3-side {
+  position: sticky;
+  top: 14vh;
+  display: grid;
+  justify-items: start;
+}
+
+.pv-nt3-photo {
+  width: 200px;
+  aspect-ratio: 1;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: url('/images/daniela-closeup-portrait.webp') 48% 22% / 190% auto no-repeat;
+  box-shadow: 0 0 0 1px rgb(226 140 168 / 60%), 0 24px 50px -24px rgb(120 60 80 / 50%);
+}
+
+.pv-nt3-letter > p:first-child::first-letter {
+  float: left;
+  margin: 8px 12px 0 0;
+  color: var(--pv-nt-rose);
+  font-family: var(--pv-serif);
+  font-size: 74px;
+  line-height: .8;
+}
+
+@media (max-width: 860px) {
+  .pv-nt2-grid,
+  .pv-nt3-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-nt2-side,
+  .pv-nt3-side {
+    position: static;
+  }
+
+  .pv-nt2-side {
+    width: min(400px, calc(100% - 16px));
+    margin: 0 auto;
+  }
+
+  .pv-nt3-side {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .pv-nt3-photo {
+    width: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pv-nt1 {
+    padding-top: 130px;
+  }
+
+  .pv-nt2-quote {
+    left: 0;
+  }
+
+  .pv-nt1-seal {
+    top: -64px;
+    width: 128px;
+  }
+
+  .pv-nt1-paper {
+    padding-top: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-nt-swash path {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
+
+

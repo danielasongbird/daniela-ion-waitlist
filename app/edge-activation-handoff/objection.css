@@ -1,0 +1,146 @@
+/* Section 14: message thread (design round 17) */
+.hb-oj2 {
+  background:
+    radial-gradient(circle at 85% 20%, rgb(203 176 237 / 30%), transparent 45%),
+    var(--v11-cream);
+}
+
+.hb-oj2-head {
+  text-align: center;
+}
+
+.hb-oj2-thread {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  max-width: 760px;
+  margin: 18px auto 0;
+  padding-right: 72px;
+}
+
+.hb-oj2-ask {
+  max-width: 600px;
+  margin-bottom: 26px;
+  padding: 30px 34px;
+  border-radius: 30px 30px 30px 6px;
+  background: #fffdf8;
+  box-shadow: 0 18px 40px rgb(55 32 68 / 12%);
+}
+
+.hb .hb-oj2-ask h2.hb-objection {
+  font-size: clamp(28px, 3.2vw, 38px);
+}
+
+.hb-oj2-reply {
+  position: relative;
+  justify-self: end;
+  max-width: 560px;
+}
+
+.hb-oj2-reply p {
+  margin: 0;
+  padding: 18px 24px;
+  border-radius: 24px 24px 6px 24px;
+  background: var(--v11-plum);
+  color: rgb(255 249 243 / 90%);
+  font-size: 17px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.hb-oj2-reply:last-of-type p {
+  background: var(--hb-accent);
+  color: #fff;
+  font-family: var(--hb-serif);
+  font-size: 21px;
+  line-height: 1.35;
+}
+
+.hb-oj2-reply strong {
+  color: var(--v11-pink);
+}
+
+.hb-oj2-typing {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 5px;
+  padding: 14px 18px;
+  border-radius: 20px 20px 6px 20px;
+  background: rgb(55 32 68 / 12%);
+  opacity: 0;
+}
+
+.hb-oj2-typing i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--v11-plum);
+  animation: hb-oj2-dot 1s ease-in-out infinite;
+}
+
+.hb-oj2-typing i:nth-child(2) { animation-delay: .15s; }
+.hb-oj2-typing i:nth-child(3) { animation-delay: .3s; }
+
+.hb-oj2-thread.is-in .hb-oj2-typing {
+  animation: hb-oj2-typing .9s ease both;
+  animation-delay: calc(var(--i) * 1.3s);
+}
+
+.hb-oj2-thread.is-in .hb-oj2-reply p {
+  animation: hb-oj2-in .5s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i) * 1.3s + .8s);
+}
+
+.hb-oj2-avatar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 54px;
+  height: 54px;
+  border: 3px solid #fffdf8;
+  border-radius: 50%;
+  background: url('/images/daniela-closeup-portrait.webp') 50% 14% / 250% auto no-repeat;
+  box-shadow: 0 8px 18px rgb(55 32 68 / 20%);
+}
+
+@keyframes hb-oj2-typing {
+  0% { opacity: 0; transform: translateY(8px); }
+  20%, 80% { opacity: 1; transform: none; }
+  100% { opacity: 0; }
+}
+
+@keyframes hb-oj2-in {
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes hb-oj2-dot {
+  0%, 100% { opacity: .3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (max-width: 860px) {
+  .hb-oj2-thread {
+    padding-right: 0;
+    padding-bottom: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-oj2-typing i {
+    animation: none;
+  }
+
+  .hb-oj2-thread .hb-oj2-reply p,
+  .hb-oj2-thread.is-in .hb-oj2-reply p {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hb-oj2-thread.is-in .hb-oj2-typing {
+    animation: none;
+  }
+}

@@ -1,0 +1,232 @@
+/* Section 5: the loop, step by step, on a lilac wash (design round 5) */
+.hb-qv3 {
+  --q-ink: var(--v11-plum);
+  --q-muted: rgb(55 32 68 / 80%);
+  --q-accent: var(--hb-accent);
+  --q-line: rgb(55 32 68 / 16%);
+  --q-dot: #f3e6f3;
+  --q-rule: rgb(55 32 68 / 16%);
+  --q-strike: #d9467a;
+
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: 104px 0;
+  background:
+    radial-gradient(circle at 88% 12%, rgb(244 139 179 / 16%), transparent 40%),
+    linear-gradient(160deg, #eee2f8 0%, #f7e8ef 58%, #fcf2ea 100%);
+  color: var(--q-ink);
+}
+
+.hb-qv3 .hb-kicker,
+.hb-qv3 h2 em {
+  color: var(--q-accent);
+}
+
+.hb-qv3 .hb-prose {
+  color: var(--q-muted);
+}
+
+.hb-qv3-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: clamp(36px, 6vw, 80px);
+}
+
+.hb-qv3-sticky {
+  position: sticky;
+  top: 110px;
+}
+
+.hb-qv3-stepwrap {
+  position: relative;
+  padding-left: 44px;
+}
+
+.hb-qv3-track {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 11px;
+  width: 2px;
+  background: var(--q-line);
+}
+
+.hb-qv3-track i {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--v11-pink), var(--hb-accent));
+  transform-origin: top;
+  transition: transform .15s linear;
+}
+
+.hb-qv3-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hb-qv3-steps li {
+  position: relative;
+  padding: 0 0 56px;
+  opacity: .38;
+  transition: opacity .4s ease;
+}
+
+.hb-qv3-steps li:last-child {
+  padding-bottom: 0;
+}
+
+.hb-qv3-steps li.is-lit {
+  opacity: 1;
+}
+
+.hb-qv3-steps li::before {
+  position: absolute;
+  top: 6px;
+  left: -40px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--q-line);
+  border-radius: 50%;
+  background: var(--q-dot);
+  content: '';
+  transition: background .4s ease, border-color .4s ease;
+}
+
+.hb-qv3-steps li.is-lit::before {
+  border-color: var(--v11-pink);
+  background: var(--v11-pink);
+}
+
+.hb-qv3-steps span {
+  color: var(--q-accent);
+  font-family: var(--hb-serif);
+  font-size: 18px;
+}
+
+.hb-qv3-steps p {
+  margin: 6px 0 0;
+  font-family: var(--hb-serif);
+  font-size: clamp(24px, 2.6vw, 32px);
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+
+/* Step 03: the true line gets struck through as it lights up */
+.hb-qv3-cut {
+  padding: 0 2px;
+  background: linear-gradient(var(--q-strike), var(--q-strike)) 0 58% / 0% 3px no-repeat;
+  text-decoration: none;
+  transition: background-size 1.1s cubic-bezier(.6, 0, .2, 1) .25s, color .6s ease 1s;
+  box-decoration-break: slice;
+}
+
+.hb-qv3-steps li.is-lit .hb-qv3-cut {
+  background-size: 100% 3px;
+  color: var(--q-muted);
+}
+
+/* Closing: pinned drafts (design round 6) */
+.hb-qc2 {
+  margin-top: 96px;
+}
+
+.hb-qc2-notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.hb-qc2-notes p {
+  position: relative;
+  margin: 0;
+  padding: 34px 26px 28px;
+  background: #fffdf8;
+  color: var(--q-muted);
+  font-size: 16px;
+  line-height: 1.65;
+  box-shadow: 0 14px 30px rgb(55 32 68 / 12%);
+}
+
+.hb-qc2-notes p:nth-child(1) {
+  transform: rotate(-2deg);
+}
+
+.hb-qc2-notes p:nth-child(2) {
+  transform: rotate(1.4deg) translateY(12px);
+}
+
+.hb-qc2-notes p:nth-child(3) {
+  transform: rotate(-1deg);
+}
+
+.hb-qc2-notes strong {
+  color: var(--v11-plum);
+  font-weight: 700;
+  background: linear-gradient(transparent 60%, rgb(244 139 179 / 38%) 60%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.hb-qc2-notes p::before {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 84px;
+  height: 24px;
+  background: rgb(244 139 179 / 45%);
+  content: '';
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.hb-qc2-question {
+  margin: 64px 0 0;
+  padding: 40px 44px;
+  border-radius: 20px;
+  background: var(--v11-plum);
+  color: var(--v11-cream);
+  font-family: var(--hb-serif);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-style: italic;
+  letter-spacing: -.02em;
+  line-height: 1.18;
+  text-align: center;
+  box-shadow: 14px 14px 0 rgb(244 139 179 / 40%);
+}
+
+@media (max-width: 860px) {
+  .hb-qv3 {
+    padding: 76px 0;
+  }
+
+  .hb-qv3-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-qv3-sticky {
+    position: static;
+  }
+
+  .hb-qc2-notes {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .hb-qc2-notes p:nth-child(2) {
+    transform: rotate(1.4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-qv3-steps li {
+    opacity: 1;
+  }
+
+  .hb-qv3-cut {
+    background-size: 100% 3px;
+    transition: none;
+  }
+}
+

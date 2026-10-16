@@ -80,4 +80,3 @@ export function requestOriginIsAllowed(request: Request, configuredOrigins: stri
   if (allowedOrigins.length) return allowedOrigins.includes(origin);
   return origin === new URL(request.url).origin;
 }
-

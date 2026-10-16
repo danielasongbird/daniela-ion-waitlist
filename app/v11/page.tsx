@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 
 import SoulQuizModal from '../SoulQuizModal';
@@ -7,13 +8,25 @@ import V11ButtonLab from './V11ButtonLab';
 import V11ScrollEffects from './V11ScrollEffects';
 import V11SupportingCta from './V11SupportingCta';
 import { landingContent as copy } from '../landingContent';
+import { portalHref } from '../edge-activation-welcome/content';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+  robots: { index: false, follow: false },
+};
 
 const listeningQuestions = [
-  'Why do I keep returning to this loop?',
-  'What is perfectionism protecting me from?',
-  'What feels like the next honest move?',
-  'What would I choose without the audience?',
-  'Which part of this is actually mine?',
+  'Why does perfectionism keep taking over?',
+  'Why can’t I stop overthinking everything?',
+  'Why don’t I trust myself anymore?',
+  'Why does wanting more feel like too much?',
+] as const;
+
+const renaissanceWants = [
+  'More influence',
+  'More time back',
+  'More money',
+  'Days that feel like you’re creating things that matter',
 ] as const;
 
 export default function V11Page() {
@@ -24,14 +37,14 @@ export default function V11Page() {
       <div className="v11-stage-hero">
 
       <aside className="v11-fomo" aria-label="Free meditation announcement">
-        <p>You would never imagine how much your life could change with just the right <strong>seven minutes audio.</strong></p>
+        <p>You would never imagine how much your life could change with just the right <strong>11-minute audio.</strong></p>
         <SoulQuizTrigger>Get instant access here</SoulQuizTrigger>
       </aside>
 
       <header className="v11-nav">
         <Link className="v11-logo" href="/">Daniela<span>✦</span></Link>
         <p>Mindset · Growth · Expansion</p>
-        <div><a href="#">Soul Portal</a><SoulQuizTrigger>{copy.navCta}</SoulQuizTrigger></div>
+        <div><a href={portalHref}>Soul Portal</a><SoulQuizTrigger>{copy.navCta}</SoulQuizTrigger></div>
       </header>
 
       <section className="v11-hero" aria-labelledby="v11-title">
@@ -57,8 +70,7 @@ export default function V11Page() {
           <header className="v11-questions-intro">
             <div>
               <p className="v11-questions-kicker">Before you press play</p>
-              <h2 id="v11-questions-title">The Answer You&apos;re Seeking,<span>Starts With <em>Asking The Right Questions</em></span></h2>
-              <p>Bring the decision, pattern, or quiet thought you keep circling. You do not need to solve it before you listen. You only need to let it be heard.</p>
+              <h2 id="v11-questions-title">You already know<span>which one of these <em>is yours.</em></span></h2>
             </div>
           </header>
           <ol className="v11-question-list">
@@ -72,9 +84,14 @@ export default function V11Page() {
                 </div>
                 <span className="v11-play-icon" aria-hidden="true" />
                 <p>{question}</p>
+                <span className="v11-question-cta">Trust the download</span>
               </li>
             ))}
           </ol>
+          <div className="v11-questions-outro">
+            <p>Whichever one made you wince, this activation was made for exactly that moment.</p>
+            <V11SupportingCta className="v11-supporting-cta-questions" label="SEND ME MY FREE ACTIVATION" />
+          </div>
         </div>
       </section>
 
@@ -92,16 +109,51 @@ export default function V11Page() {
 
           <div className="v11-about-copy">
             <p className="v11-about-kicker">A note from Daniela</p>
-            <h2 id="v11-about-title">This is my soul <em>speaking to yours.</em></h2>
+            <h2 id="v11-about-title">Hey. <em>I see you.</em></h2>
             <div className="v11-about-prose">
-              <p>I know telling your story has never felt like you, that you&rsquo;ve been holding back something you were made to share because you&rsquo;re terrified of getting it wrong.</p>
-              <p>I know what it&rsquo;s like to have so much bubbling up inside of you, but you&rsquo;ve played small in releasing it. Overthinking every word so it doesn&rsquo;t sound cringey. Watching everyone you know in real life and wondering what they&rsquo;d think if they saw the real you.</p>
-              <p>I know the ache of wanting deeper alignment, unapologetic confidence in your own voice, and the creative flow you know is yours.</p>
-              <blockquote>You are enough, and you are totally worthy.</blockquote>
-              <p>Are you ready to stop creating for approval and start creating because it feels like coming home?</p>
-              <p>Welcome to Soul Portal. This is where you get to be your truest expression of yourself, without doubt or fear holding you back.</p>
+              <p>You&rsquo;ve got real things to say. Somewhere along the way it turned into overthinking every word before you let it out, and wondering what the people who know you in real life would think if they saw the real you. That&rsquo;s performing, and I know how exhausting it is to carry.</p>
+              <p>What I know is that the opportunity and the confidence are already in you, and you just haven&rsquo;t been letting yourself lead with them. Stop performing and trust the download when it comes.</p>
+              <p>This is my soul speaking to yours.</p>
+              <blockquote>You are enough, and you are totally worthy of wanting more.</blockquote>
+              <p>Welcome to Soul Portal, where you get to be your truest expression without doubt or fear holding you back.</p>
             </div>
-            <p className="v11-about-reminder"><span>Remember:</span> Everything is inside of you.</p>
+            <p className="v11-about-reminder">Everything is already inside of you. <span>Press play and let it come home.</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section className="v11-renaissance" aria-labelledby="v11-renaissance-title">
+        <div className="v11-renaissance-inner">
+          <header>
+            <p className="v11-questions-kicker">The new currency</p>
+            <h2 id="v11-renaissance-title">We&rsquo;re living through <em>a Human Renaissance</em></h2>
+          </header>
+          <div className="v11-renaissance-prose">
+            <p>The old currency of hustle and proving yourself twice as hard is on its way out. The new currency is your lived experience, and everything you&rsquo;ve walked through and learned the hard way is the asset now.</p>
+            <p>You already know what you actually want:</p>
+            <ul className="v11-renaissance-wants">
+              {renaissanceWants.map((want) => (
+                <li key={want}><span aria-hidden="true">✦</span>{want}</li>
+              ))}
+            </ul>
+            <p>Soul Portal is the start of an ecosystem for creative women building meaningful businesses through their gifts. When you create from your soul, your book or your music (whatever you&rsquo;re here to make) reaches the people who&rsquo;ve been waiting for your version of it.</p>
+            <p>This activation opens you up to what we call serendipity here, the coincidence too precise to be random, like overhearing the one conversation that solves what you&rsquo;ve been stuck on for months.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="v11-science" aria-labelledby="v11-science-title">
+        <div className="v11-science-inner">
+          <header>
+            <p className="v11-about-kicker">The science</p>
+            <h2 id="v11-science-title">Why This Activation <em>Works Differently</em></h2>
+          </header>
+          <div className="v11-about-prose">
+            <p className="v11-science-lead">You&rsquo;ve tried meditations that calm the mind. This one is designed to open your inner knowing.</p>
+            <p>At its heart is pink noise, a natural 1/f frequency with the same fractal pattern found in heartbeats and even galaxies. It&rsquo;s used here to soften mental chatter and create a quiet space where your &ldquo;aha&rdquo; moments can surface.</p>
+            <p>From your first conscious breath, a gentle guided passage takes you inward, away from the noise of the day, and makes room for what your soul already knows. As your analytical mind softens, your heart and body come into alignment and a quieter voice comes through, the one that sees patterns and feels truth.</p>
+            <p>Your heart generates a stronger electromagnetic field than your brain does, and this activation is designed to bring the two into coherence. That&rsquo;s where creative intuition becomes something you feel in your body, the part of you that connects the dots before your logic catches up.</p>
+            <p>When you come back you&rsquo;ll feel reset, and for the rest of the day you may notice intuitive hits and small moments of confirmation, like your inner compass coming back online. For women who lead and create, this is a sanctuary you can return to whenever you need reminding that your intuition was always your compass.</p>
           </div>
         </div>
       </section>
@@ -110,24 +162,24 @@ export default function V11Page() {
         <div className="v11-invitation-rings" aria-hidden="true" />
         <div className="v11-invitation-inner">
           <div className="v11-invitation-copy">
-            <p className="v11-invitation-kicker">Seven minutes. One honest return.</p>
+            <p className="v11-invitation-kicker">Eleven minutes. One honest return.</p>
             <h2 id="v11-invitation-title">Come into the sound with <em>one question.</em></h2>
 
             <SoulQuizTrigger className="v11-audio-card">
               <span className="v11-audio-play" aria-hidden="true" />
               <span>
-                <strong>Your Private Reset</strong>
-                <small>07:00 &middot; ready when you are</small>
+                <strong>The Creative Intuition Activation</strong>
+                <small>11:00 &middot; ready when you are</small>
               </span>
               <span className="v11-audio-arrow" aria-hidden="true">&rarr;</span>
             </SoulQuizTrigger>
 
             <div className="v11-invitation-facts" aria-label="Audio details">
-              <p><strong>07</strong><span>minutes</span></p>
+              <p><strong>11</strong><span>minutes</span></p>
               <p><strong>Free</strong><span>private access</span></p>
             </div>
 
-            <p className="v11-invitation-note">Receive the seven-minute audio and the personal reflection that follows it. Nothing to prepare. Nothing to perform. Just one question worth hearing differently.</p>
+            <p className="v11-invitation-note">Receive the 11-minute activation and the personal reflection that follows it. Nothing to prepare. Nothing to perform. Just one question worth hearing differently.</p>
           </div>
 
           <aside className="v11-portal-preview" aria-label="Soul Portal preview">
@@ -139,12 +191,12 @@ export default function V11Page() {
             <div className="v11-portal-content">
               <p className="v11-portal-kicker">Your private listening room</p>
               <h3>The answer gets quieter before it gets clear.</h3>
-              <p>Your seven-minute audio is ready. Create your access, press play, and listen for the part of you that already knows.</p>
+              <p>Your 11-minute activation is ready. Create your access, press play, and listen for the part of you that already knows.</p>
               <div className="v11-portal-step">
                 <span>Step 1 of 2</span>
                 <i />
               </div>
-              <V11SupportingCta className="v11-supporting-cta-ipad" label="UNLOCK MY AUDIO" />
+              <V11SupportingCta className="v11-supporting-cta-ipad" label="SEND ME MY FREE ACTIVATION" />
               <small>Private by design &middot; No spam &middot; Unsubscribe anytime</small>
             </div>
           </aside>
@@ -166,11 +218,29 @@ export default function V11Page() {
           <div className="v11-final-content">
             <p>the portal is open</p>
             <h2 id="v11-final-title">Say yes to your truest self. <em>Everything changes from here.</em></h2>
-            <span>Seven minutes. Free. No performance required.</span>
-            <V11SupportingCta className="v11-supporting-cta-final" label="PRESS PLAY" />
+            <V11SupportingCta className="v11-supporting-cta-final" label="SEND ME MY FREE ACTIVATION" />
+            <span className="v11-final-line">It&rsquo;s free, and all it asks for is 11 minutes of your day.</span>
           </div>
         </div>
         <p className="v11-final-safety">Listen while still and awake. Use a comfortable volume and pause if the sound causes discomfort.</p>
+      </section>
+
+      <section className="v11-bio" aria-labelledby="v11-bio-title">
+        <div className="v11-bio-inner">
+          <div className="v11-bio-image" role="img" aria-label="Daniela smiling beside a studio microphone" />
+          <div className="v11-bio-copy">
+            <p className="v11-about-kicker">About Daniela</p>
+            <h2 id="v11-bio-title">Daniela Ion</h2>
+            <div className="v11-about-prose">
+              <p>Daniela Ion has spent her career studying how voice actually moves people, first as a professional recording artist and then as the founder of Her Voice Impacts, where she&rsquo;s interviewed Forbes 30 Under 30 honorees, an MTV Europe Music Award winner, a former EU Commissioner and Deputy Prime Minister, and a bestselling author with millions of copies sold. Through that work she started naming something bigger than any one industry: a human renaissance, where a woman&rsquo;s voice lives in her book, her composition, her film, her fashion line and her thought leadership as much as in how she sings or speaks.</p>
+              <p>Soul Portal (Splendour of Unique Love) is built on that belief. It&rsquo;s an ecosystem for women building meaningful businesses through their creativity, where voice in whatever form it takes becomes the ground she builds from, and hers to lead from.</p>
+            </div>
+            <div className="v11-bio-socials" aria-label="Follow Daniela">
+              <a href="https://www.instagram.com/thedaniela.ion" target="_blank" rel="noreferrer">Instagram</a>
+              <a href="https://www.linkedin.com/in/danielaion" target="_blank" rel="noreferrer">LinkedIn</a>
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className="v11-footer">
